@@ -73,6 +73,15 @@
   }
 }
 
+.logo_wrapper {
+  @include desktop-down {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 52px;
+  }
+}
+
 .border {
   background: $gradient-rainbow;
   padding: 2px;
@@ -100,6 +109,20 @@
     @include primary-font(500);
     @include font-size(16);
     color: $color-text-reverse;
+
+    span:first-child {
+      margin-right: 18px;
+      @include desktop-down {
+        margin-right: 0;
+      }
+    }
+
+    @include desktop-down {
+      margin-bottom: 44px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
   }
 
   &_link {
@@ -109,14 +132,6 @@
 
     @include desktop-down {
       margin: 8px;
-    }
-
-    &s {
-      @include desktop-down {
-        margin-bottom: 44px;
-        display: flex;
-        justify-content: space-between;
-      }
     }
   }
 }

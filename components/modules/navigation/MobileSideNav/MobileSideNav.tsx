@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
-// import { Button } from '@mozilla/lilypad-ui';
-import { useRouter } from 'next/router';
+import { Button } from '@mozilla/lilypad-ui';
+import { useRouter } from 'next/navigation';
 import styles from './MobileSideNav.module.scss';
 
 type MobileSideNavPropsT = {
@@ -46,14 +46,14 @@ const MobileSideNav = ({
         <div className={styles.banner_gradient} />
         <div className={styles.nav_container}>
           <div className="flex-justify-end p-20">
-            {/* <Button
+            <Button
               label="close mobile navigation"
               category="primary_clear"
               size="large"
               icon="x"
               onClick={handleMobileMenuClick}
               classProp={styles.menu_button}
-            /> */}
+            />
           </div>
 
           {/* Logo */}

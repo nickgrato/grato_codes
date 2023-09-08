@@ -52,15 +52,10 @@ export type TileSpotlightT = {
 };
 
 export type HeroT = {
-  desktopImage: ImageT;
-  mobileImage: ImageT;
-  imageAlt: string;
   title?: string;
   body?: string;
   ctaTitle?: string;
   ctaHref?: string;
-  cta2Title?: string;
-  cta2Href?: string;
   __typename?: string;
 };
 

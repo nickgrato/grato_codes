@@ -1,18 +1,21 @@
+'use client';
+
 import Logo from '@Shared/Logo/Logo';
 import styles from './Footer.module.scss';
-
+import { useDesktopDown } from 'hooks/useMediaQuery';
 type FooterPropsT = {
   classProp?: string;
 };
 
 const Footer = ({ classProp = '' }: FooterPropsT) => {
+  const isDesktopDown = useDesktopDown();
+
   return (
     <section className={`${classProp} ${styles.wrapper}`}>
       <div className={styles.container}>
         {/* LINKS  */}
         <div className={styles.link_blocks}>
-          <div className={styles.link_block}>
-            {/* <a
+          {/* <a
               target="_blank"
               rel="noreferrer"
               href="https://github.com/mozilla/hubs/"
@@ -28,8 +31,8 @@ const Footer = ({ classProp = '' }: FooterPropsT) => {
             >
               Latest News
             </a> */}
-
-            <Logo size="medium" />
+          <div className={styles.logo_wrapper}>
+            <Logo size={isDesktopDown ? 'small' : 'medium'} />
           </div>
 
           {/* RESOURCES  */}
@@ -125,7 +128,7 @@ const Footer = ({ classProp = '' }: FooterPropsT) => {
         {/* LINKS  */}
         <div className={styles.submenu_wrapper}>
           <div className={styles.submenu_links}>
-            <span className="mr-18">Created with:</span>
+            <span>Created with:</span>
             <a target="_blanks" className={styles.submenu_link} href="#">
               NextJs
             </a>

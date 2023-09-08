@@ -4,7 +4,7 @@ import '@mozilla/lilypad-ui/dist/styles/theme.scss';
 import type { Metadata } from 'next';
 import { Inter, Space_Grotesk } from 'next/font/google';
 import Footer from '@Modules/navigation/Footer/Footer';
-import MainNav from '@Modules/navigation/MainNav/MainNav';
+import Nav from '@Modules/navigation/Nav/Nav';
 
 const inter = Inter({
   variable: '--inter-font',
@@ -57,7 +57,7 @@ export default function RootLayout({
           className={`${inter.variable} ${space_grotesk.variable}`}
           data-theme="zebra"
         >
-          <MainNav />
+          <Nav />
           <div className="page_wrapper">{children}</div>
           <Footer />
         </main>

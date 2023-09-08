@@ -1,3 +1,5 @@
+'use client';
+
 import { useCallback, useState } from 'react';
 import { useDesktopDown } from 'hooks/useMediaQuery';
 import MainNav from '@Modules/navigation/MainNav/MainNav';
@@ -17,7 +19,7 @@ const Nav = ({ navData }: NavPropsT) => {
 
   return (
     <>
-      <MainNav navData={navData} />
+      <MainNav navData={navData} mobileMenuClick={toggleMobileNav} />
       {isDesktopDown && (
         <MobileSideNav
           MobileMenuClick={toggleMobileNav}

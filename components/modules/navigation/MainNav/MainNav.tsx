@@ -1,28 +1,29 @@
-'use client';
-
 import { useCallback } from 'react';
 import styles from './MainNav.module.scss';
 import { Button, Icon, Pill, ToolTip } from '@mozilla/lilypad-ui';
 import { NavigationT } from 'types';
 import Logo from '@Shared/Logo/Logo';
+import { useDesktopDown } from 'hooks/useMediaQuery';
 
 type MainNavPropsT = {
   navData?: NavigationT;
-  // mobileMenuClick: () => void;
+  mobileMenuClick: () => void;
   classProp?: string;
 };
 
 const MainNav = ({
   navData,
-  // mobileMenuClick,
+  mobileMenuClick,
   classProp = '',
 }: MainNavPropsT) => {
   /**
    * Handle Menu Click
    */
-  // const handleMobileMenuClick = useCallback(() => {
-  //   mobileMenuClick && mobileMenuClick();
-  // }, [mobileMenuClick]);
+  const handleMobileMenuClick = useCallback(() => {
+    mobileMenuClick && mobileMenuClick();
+  }, [mobileMenuClick]);
+
+  const isDesktopDown = useDesktopDown();
 
   const handleClick = () => {
     console.log('clicly the click');
@@ -58,46 +59,47 @@ const MainNav = ({
             <Logo />
 
             {/* Links  */}
+            {!isDesktopDown && (
+              <div className={styles.main_nav_links}>
+                <a href="/labs" className={styles.main_nav_link}>
+                  Home
+                </a>
 
-            <div className={styles.main_nav_links}>
-              <a href="/labs" className={styles.main_nav_link}>
-                Home
-              </a>
+                <a href="/cloud" className={styles.main_nav_link}>
+                  About
+                </a>
 
-              <a href="/cloud" className={styles.main_nav_link}>
-                About
-              </a>
-
-              <a
-                href="/E4e8oLx/hubs-demo-promenade"
-                target="_blank"
-                className={styles.main_nav_link}
-              >
-                Contact
-              </a>
-            </div>
+                <a
+                  href="/E4e8oLx/hubs-demo-promenade"
+                  target="_blank"
+                  className={styles.main_nav_link}
+                >
+                  Contact
+                </a>
+              </div>
+            )}
           </div>
 
           {/* Go To Hub Dashboard */}
           {/* Mobile Menu */}
+          {isDesktopDown && (
+            <Button
+              label="Menu"
+              category="secondary_clear"
+              icon="menu"
+              onClick={handleMobileMenuClick}
+              classProp={styles.mobile_menu}
+            />
+          )}
 
-          <div className="flex-align-center">
-            {/* {isDesktopDown && (
-              <Button
-                label="Menu"
-                category="primary_clear"
-                icon="menu"
-                onClick={handleMobileMenuClick}
-                classProp={styles.mobile_menu}
-              />
-            )} */}
-
-            <div className={styles.main_nav_actions}>
-              <Button text="Porfolio" classProp="mr-10" />
-
-              <Button text="Blog" category="secondary_outline" label="cats" />
+          {!isDesktopDown && (
+            <div className="flex-align-center">
+              <div className={styles.main_nav_actions}>
+                <Button text="Porfolio" classProp="mr-10" />
+                <Button text="Blog" category="secondary_outline" />
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
     </nav>
