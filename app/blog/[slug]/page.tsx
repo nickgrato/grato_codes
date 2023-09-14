@@ -23,7 +23,7 @@ export async function generateMetadata({
 const options = {
   renderMark: {
     [MARKS.CODE]: async (text: any) => {
-      const html = await highlight(text, 'github-dark', 'javascript');
+      const html = await highlight(text, '', 'javascript');
 
       return (
         <span
