@@ -11,11 +11,11 @@ async function highlight(code: string, theme: Theme, lang: Lang) {
   if (!highlighter) {
     highlighter = await getHighlighter({
       langs: [lang],
-      theme: theme,
+      theme: undefined,
     });
   }
 
-  const tokens = highlighter.codeToThemedTokens(code, lang, theme, {
+  const tokens = highlighter.codeToThemedTokens(code, lang, undefined, {
     includeExplanation: false,
   });
   const html = renderToHtml(tokens, { bg: 'transparent' });
@@ -41,7 +41,7 @@ export async function generateMetadata({
 const options = {
   renderMark: {
     [MARKS.CODE]: async (text: any) => {
-      const html = await highlight(text, 'dracula-soft', 'javascript');
+      const html = await highlight(text, 'github-dark', 'javascript');
 
       return (
         <span
