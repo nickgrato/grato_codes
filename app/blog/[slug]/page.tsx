@@ -3,7 +3,25 @@ import { getBlogPageData } from 'services/contentful.service';
 import type { Metadata } from 'next';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { MARKS } from '@contentful/rich-text-types';
-import { highlight } from 'services/shiki.service';
+import type { Highlighter, Lang, Theme } from 'shiki';
+import { renderToHtml, getHighlighter } from 'shiki';
+
+let highlighter: Highlighter;
+export async function highlight(code: string, theme: Theme, lang: Lang) {
+  if (!highlighter) {
+    highlighter = await getHighlighter({
+      langs: [lang],
+      theme: theme,
+    });
+  }
+
+  const tokens = highlighter.codeToThemedTokens(code, lang, theme, {
+    includeExplanation: false,
+  });
+  const html = renderToHtml(tokens, { bg: 'transparent' });
+
+  return html;
+}
 
 export async function generateMetadata({
   params,
