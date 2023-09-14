@@ -94,13 +94,13 @@
   PARAGRPH STYLES
 -------------------------------*/
 @mixin paragraph {
-  @include font-size(16);
+  @include font-size(18);
   @include primary-font(500);
   line-height: 150%;
 }
 
 @mixin paragraph-sm {
-  @include font-size(14);
+  @include font-size(16);
   @include primary-font(500);
   line-height: 150%;
 }

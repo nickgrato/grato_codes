@@ -97,3 +97,27 @@ export type NewContactT = {
 };
 
 type PlansT = 'starter' | 'personal' | 'professional' | 'business' | null;
+
+export type BlogPostPreviewT = Omit<BlogPostT, 'post'>;
+export type BlogPostT = {
+  sys: {
+    id: string;
+  };
+  slug: string;
+  title: string;
+  date: string;
+  image: ImageT;
+  preview: string;
+  body: {
+    json: Document;
+  };
+};
+
+export type BlogT = {
+  name: string;
+  posts: BlogPostPreviewT[];
+};
+
+export type BlogPageT = {
+  post: BlogPostT;
+};

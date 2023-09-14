@@ -1,0 +1,21 @@
+@use 'styles/core/boilerplate' as *;
+
+.wrapper {
+  @include primary-font;
+  position: relative;
+}
+
+.image_wrapper {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  margin-bottom: 12px;
+}
+
+.date {
+  position: absolute;
+  color: $color-text-subtle;
+  transform: rotate(270deg);
+  left: -50px;
+  top: 25px;
+  @include body-sm();
+}

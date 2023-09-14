@@ -4,6 +4,7 @@ import { Button, Icon, Pill, ToolTip } from '@mozilla/lilypad-ui';
 import { NavigationT } from 'types';
 import Logo from '@Shared/Logo/Logo';
 import { useDesktopDown } from 'hooks/useMediaQuery';
+import Link from 'next/link';
 
 type MainNavPropsT = {
   navData?: NavigationT;
@@ -56,7 +57,9 @@ const MainNav = ({
           {/* Main navigation links / logo */}
           <div className={styles.main_nav_contents}>
             {/* Logo */}
-            <Logo />
+            <Link href="/">
+              <Logo />
+            </Link>
 
             {/* Links  */}
             {!isDesktopDown && (

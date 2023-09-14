@@ -1,0 +1,24 @@
+@use 'styles/core/boilerplate' as *;
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+  padding: 40px;
+}
+
+.container {
+  max-width: $container-max-width;
+  overflow: hidden;
+}
+
+.body {
+  @include paragraph;
+  p {
+    margin-bottom: 12px;
+  }
+
+  h3 {
+    @include heading-lg;
+    margin: 40px 0;
+  }
+}

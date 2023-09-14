@@ -15,14 +15,20 @@
     "@types/node": "20.4.8",
     "@types/react": "18.2.18",
     "@types/react-dom": "18.2.7",
-    "contentful": "^10.4.0",
+    "axios": "^1.5.0",
+    "contentful": "^10.5.1",
     "eslint": "8.46.0",
     "eslint-config-next": "13.4.12",
     "next": "13.4.12",
     "prettier": "^3.0.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-syntax-highlighter": "^15.5.0",
     "sass": "^1.64.2",
+    "shiki": "^0.14.4",
     "typescript": "5.1.6"
+  },
+  "devDependencies": {
+    "@types/react-syntax-highlighter": "^15.5.7"
   }
 }

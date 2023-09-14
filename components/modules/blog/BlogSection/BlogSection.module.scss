@@ -1,0 +1,36 @@
+@use 'styles/core/boilerplate' as *;
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+  padding: 40px;
+
+  @include mobile-down {
+    padding: 20px;
+  }
+}
+
+.container {
+  width: 100%;
+  max-width: $container-max-width;
+}
+
+.content {
+  display: grid;
+  grid-template-columns: 48% 48%;
+  grid-gap: 4%;
+
+  @include tablet-down {
+    grid-template-columns: 100%;
+    grid-gap: 0%;
+    row-gap: 40px;
+  }
+
+  @include mobile-down {
+    row-gap: 20px;
+  }
+}
+
+.loading {
+  width: 100%;
+}
