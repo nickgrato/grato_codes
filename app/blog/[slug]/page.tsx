@@ -4,7 +4,49 @@ import type { Metadata } from 'next';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { MARKS } from '@contentful/rich-text-types';
 import type { Highlighter, Lang, Theme } from 'shiki';
-import { renderToHtml, getHighlighter } from 'shiki';
+import { renderToHtml } from 'shiki';
+import * as fs from 'fs/promises';
+import { join as pathJoin } from 'path';
+
+import * as shiki from 'shiki';
+
+// Shiki loads languages and themes using "fs" instead of "import", so Next.js
+// doesn't bundle them into production build. To work around, we manually copy
+// them over to our source code (lib/shiki/*) and update the "paths".
+//
+// Note that they are only referenced on server side
+// See: https://github.com/shikijs/shiki/issues/138
+const getShikiPath = (): string => {
+  return pathJoin(process.cwd(), 'libs/shiki');
+};
+
+const touched = { current: false };
+
+// "Touch" the shiki assets so that Vercel will include them in the production
+// bundle. This is required because shiki itself dynamically access these files,
+// so Vercel doesn't know about them by default
+const touchShikiPath = (): void => {
+  if (touched.current) return; // only need to do once
+  fs.readdir(getShikiPath()); // fire and forget
+  touched.current = true;
+};
+
+const getHighlighter = async (options: any) => {
+  touchShikiPath();
+
+  const highlighter = await shiki.getHighlighter({
+    // This is technically not compatible with shiki's interface but
+    // necessary for rehype-pretty-code to work
+    // - https://rehype-pretty-code.netlify.app/ (see Custom Highlighter)
+    ...(options as any),
+    paths: {
+      languages: `${getShikiPath()}/languages/`,
+      themes: `${getShikiPath()}/themes/`,
+    },
+  });
+
+  return highlighter;
+};
 
 let highlighter: Highlighter;
 async function highlight(code: string, theme: Theme, lang: Lang) {
