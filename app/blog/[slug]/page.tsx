@@ -7,7 +7,7 @@ import type { Highlighter, Lang, Theme } from 'shiki';
 import { renderToHtml, getHighlighter } from 'shiki';
 
 let highlighter: Highlighter;
-export async function highlight(code: string, theme: Theme, lang: Lang) {
+async function highlight(code: string, theme: Theme, lang: Lang) {
   if (!highlighter) {
     highlighter = await getHighlighter({
       langs: [lang],
