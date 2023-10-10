@@ -37,7 +37,7 @@ const ContactModal = () => {
         <p className="body-md">Feel free to send me a message:</p>
 
         {data.map(({ icon, href, label }) => (
-          <div className="flex-align-center mb-12">
+          <div className="flex-align-center mb-12" key={label}>
             <Icon name={icon} classProp="mr-12" />
             <a
               href={href}
