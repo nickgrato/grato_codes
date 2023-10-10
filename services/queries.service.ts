@@ -41,7 +41,8 @@ export const createBlogPageQuery = (slug: string) => {
         ... on BlogPost {
           ${blogCollection}
           body {
-            json
+           
+            json 
            }
         }
       }  

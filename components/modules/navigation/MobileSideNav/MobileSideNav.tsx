@@ -2,6 +2,7 @@ import { useCallback } from 'react';
 import { Button } from '@mozilla/lilypad-ui';
 import { useRouter } from 'next/navigation';
 import styles from './MobileSideNav.module.scss';
+import Link from 'next/link';
 
 type MobileSideNavPropsT = {
   isOpen: boolean;
@@ -48,53 +49,39 @@ const MobileSideNav = ({
           <div className="flex-justify-end p-20">
             <Button
               label="close mobile navigation"
-              category="primary_clear"
-              size="large"
+              category="secondary_outline"
+              size="medium"
               icon="x"
               onClick={handleMobileMenuClick}
               classProp={styles.menu_button}
             />
           </div>
 
-          {/* Logo */}
-          <div className="flex-justify-center mb-10"></div>
-
           {/* LINKS  */}
-          <ul className="m-0">
-            <li>
-              <a className={styles.nav_link} href="/labs">
-                Creator Labs
-              </a>
-            </li>
-            <li>
-              <a className={styles.nav_link} href="/cloud">
-                Hubs Cloud
-              </a>
-            </li>
-            <li>
-              {/* TODO get demo url?  */}
-              <a
-                className={styles.nav_link}
-                href="/Pvg5MMt/hubs-demo"
-                target="_blank"
-              >
-                Explore Hubs
-              </a>
-            </li>
-          </ul>
+          <div className={styles.nav_links}>
+            <Link
+              href="/"
+              className={styles.nav_link}
+              onClick={handleMobileMenuClick}
+            >
+              Home
+            </Link>
 
-          {/* ACTIONS  */}
-          <div className="p-24">
-            <div className="mb-10 flex">
-              {/* <Button
-                label="See Pricing and subscribe to Hubs"
-                classProp="flex-grow-1 "
-                text="See Pricing"
-                onClick={handleGetStartedClick}
-              /> */}
-            </div>
+            <Link
+              href="/about"
+              className={styles.nav_link}
+              onClick={handleMobileMenuClick}
+            >
+              About
+            </Link>
 
-            <div className="flex"></div>
+            <Link
+              href="/portfolio"
+              className={styles.nav_link}
+              onClick={handleMobileMenuClick}
+            >
+              Portfolio
+            </Link>
           </div>
         </div>
       </div>

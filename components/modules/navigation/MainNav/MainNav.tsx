@@ -1,10 +1,11 @@
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import styles from './MainNav.module.scss';
-import { Button, Icon, Pill, ToolTip } from '@mozilla/lilypad-ui';
+import { Button, Modal, Icon } from '@mozilla/lilypad-ui';
 import { NavigationT } from 'types';
 import Logo from '@Shared/Logo/Logo';
 import { useDesktopDown } from 'hooks/useMediaQuery';
 import Link from 'next/link';
+import ContactModal from '@Modals/ContactModal/ContactModal';
 
 type MainNavPropsT = {
   navData?: NavigationT;
@@ -17,6 +18,8 @@ const MainNav = ({
   mobileMenuClick,
   classProp = '',
 }: MainNavPropsT) => {
+  const [isContactModalVisible, setIsContactModalVisible] = useState(false);
+
   /**
    * Handle Menu Click
    */
@@ -26,86 +29,71 @@ const MainNav = ({
 
   const isDesktopDown = useDesktopDown();
 
-  const handleClick = () => {
-    console.log('clicly the click');
-  };
   /**
    * Main Nav JSX
    */
   return (
-    <nav className={`${styles.main_nav} ${classProp}`}>
-      {/* <div className={styles.banner_gradient}>
-        <div className={styles.marquee_container}>
-          <div className={styles.marquee}>
-            <section className={styles.banner_text}>
-              <div className="flex-align-center">
-                <div>
-                  <Icon name="alert-octagon" classProp="mr-10 mt-3" />
-                  <Pill title="pil" category="cool" />
+    <>
+      <nav className={`${styles.main_nav} ${classProp}`}>
+        <div className={styles.main_nav_wrapper}>
+          <div className={styles.main_nav_container}>
+            {/* Main navigation links / logo */}
+            <div className={styles.main_nav_contents}>
+              {/* Logo */}
+              <Link href="/">
+                <Logo />
+              </Link>
+
+              {/* Links  */}
+              {!isDesktopDown && (
+                <div className={styles.main_nav_links}>
+                  <Link href="/" className={styles.main_nav_link}>
+                    Home
+                  </Link>
+
+                  <Link href="/about" className={styles.main_nav_link}>
+                    About
+                  </Link>
+
+                  <Link href="/portfolio" className={styles.main_nav_link}>
+                    Portfolio
+                  </Link>
                 </div>
-                <p className="body-sm-bold flex-align-center">
-                  {navData?.bannerText}
-                </p>
-              </div>
-            </section>
-          </div>
-        </div>
-      </div> */}
+              )}
+            </div>
 
-      <div className={styles.main_nav_wrapper}>
-        <div className={styles.main_nav_container}>
-          {/* Main navigation links / logo */}
-          <div className={styles.main_nav_contents}>
-            {/* Logo */}
-            <Link href="/">
-              <Logo />
-            </Link>
+            {/* Go To Hub Dashboard */}
+            {/* Mobile Menu */}
+            {isDesktopDown && (
+              <Button
+                label="Menu"
+                category="secondary_clear"
+                icon="menu"
+                onClick={handleMobileMenuClick}
+                classProp={styles.mobile_menu}
+              />
+            )}
 
-            {/* Links  */}
             {!isDesktopDown && (
-              <div className={styles.main_nav_links}>
-                <a href="/labs" className={styles.main_nav_link}>
-                  Home
-                </a>
-
-                <a href="/cloud" className={styles.main_nav_link}>
-                  About
-                </a>
-
-                <a
-                  href="/E4e8oLx/hubs-demo-promenade"
-                  target="_blank"
-                  className={styles.main_nav_link}
-                >
-                  Contact
-                </a>
+              <div className="flex-align-center">
+                <div className={styles.main_nav_actions}>
+                  <Button
+                    text="Contact"
+                    onClick={() => setIsContactModalVisible(true)}
+                  />
+                </div>
               </div>
             )}
           </div>
-
-          {/* Go To Hub Dashboard */}
-          {/* Mobile Menu */}
-          {isDesktopDown && (
-            <Button
-              label="Menu"
-              category="secondary_clear"
-              icon="menu"
-              onClick={handleMobileMenuClick}
-              classProp={styles.mobile_menu}
-            />
-          )}
-
-          {!isDesktopDown && (
-            <div className="flex-align-center">
-              <div className={styles.main_nav_actions}>
-                <Button text="Porfolio" classProp="mr-10" />
-                <Button text="Blog" category="secondary_outline" />
-              </div>
-            </div>
-          )}
         </div>
-      </div>
-    </nav>
+      </nav>
+      <Modal
+        isVisible={isContactModalVisible}
+        onClose={() => setIsContactModalVisible(false)}
+      >
+        <ContactModal />
+      </Modal>
+    </>
   );
 };
 

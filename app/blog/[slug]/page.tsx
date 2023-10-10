@@ -2,7 +2,7 @@ import styles from './page.module.scss';
 import { getBlogPageData } from 'services/contentful.service';
 import type { Metadata } from 'next';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
-import { MARKS } from '@contentful/rich-text-types';
+import { MARKS, BLOCKS } from '@contentful/rich-text-types';
 import type { Highlighter, Lang, Theme } from 'shiki';
 import { renderToHtml } from 'shiki';
 import * as fs from 'fs/promises';
@@ -81,6 +81,12 @@ export async function generateMetadata({
 }
 
 const options = {
+  renderNode: {
+    [BLOCKS.EMBEDDED_ASSET]: (node: any) => {
+      const html = `<img class="img-fluid" src="${node.data.target.url}"/>`;
+      return <span dangerouslySetInnerHTML={{ __html: html }} />;
+    },
+  },
   renderMark: {
     [MARKS.CODE]: async (text: any) => {
       const html = await highlight(text, 'github-dark', 'javascript');
@@ -92,6 +98,7 @@ const options = {
             backgroundColor: 'black',
             display: 'block',
             padding: '20px',
+            fontSize: '1rem',
           }}
         />
       );
@@ -100,8 +107,6 @@ const options = {
 };
 
 const Page = async ({ params }: { params: { slug: string } }) => {
-  // TODO CREATE THE GET BLOG PAGE QUERY SERVICE AND GET THE BLOG DATA
-  // AND DISPLAY IT HERE.
   console.log(params.slug);
   const blog = await getBlogPageData(params.slug).catch((e) =>
     console.error(e.code),

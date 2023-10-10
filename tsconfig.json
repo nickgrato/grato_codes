@@ -24,6 +24,7 @@
       "@Shared/*": ["components/shared/*"],
       "@Navigation/*": ["components/modules/navigation/*"],
       "@Modules/*": ["components/modules/*"],
+      "@Modals/*": ["components/modals/*"],
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

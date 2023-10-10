@@ -260,6 +260,12 @@
   }
 }
 
+.flex {
+  &-column {
+    flex-direction: column;
+  }
+}
+
 // Create Size Value Array
 $start: 0;
 $end: 50;
@@ -277,11 +283,13 @@ $array: set-nth($array, 1, $start);
     gap: #{$size}#{$unit};
     &-dt {
       @include mobile-up {
+        display: flex;
         gap: #{$size}#{$unit};
       }
     }
     &-mb {
       @include mobile-down {
+        display: flex;
         gap: #{$size}#{$unit};
       }
     }

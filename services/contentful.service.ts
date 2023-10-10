@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from 'axios';
 import { createClient } from 'contentful';
 import { BlogT, BlogPostT } from 'types';
-import { Entry, EntryCollection } from 'contentful';
+import { TopLevelBlock, BLOCKS } from '@contentful/rich-text-types';
 import { createBlogQuery, createBlogPageQuery } from './queries.service';
 const CONTENTFUL_ENV = 'master';
 const SPACE = '3uz5bhrw01ya';
@@ -23,11 +23,11 @@ const PROTOCOLS = {
  * by default, however, if you only need a specific entery, the Contentful client is a
  * nice way to go.
  */
-// const client = createClient({
-//   environment: CONTENTFUL_ENV,
-//   space: SPACE,
-//   accessToken: `${process.env.CONTENTFUL_TOKEN}` ?? '',
-// });
+const client = createClient({
+  environment: CONTENTFUL_ENV,
+  space: SPACE,
+  accessToken: `${process.env.NEXT_PUBLIC_CONTENTFUL_TOKEN}` ?? '',
+});
 
 /**
  * Handle Bad Request
@@ -161,5 +161,23 @@ export const getBlogPageData = async (slug: string) => {
     throw statusText;
   }
 
-  return data.blogPostCollection.items[0] as BlogPostT;
+  /**
+   * Look through blog posts for assets and get asset URLs
+   */
+  const blogPosts: BlogPostT = data.blogPostCollection.items[0];
+  await Promise.all(
+    blogPosts.body.json.content.map(async (content: TopLevelBlock) => {
+      if (content.nodeType !== BLOCKS.EMBEDDED_ASSET) return;
+
+      // Get Asset URL
+      const assetId = content.data.target.sys.id;
+      const asset = await client.getAsset(assetId);
+
+      if (!asset.fields.file) return;
+      const assetUrl = asset.fields.file.url;
+      content.data.target.url = assetUrl;
+    }),
+  );
+
+  return blogPosts as BlogPostT;
 };

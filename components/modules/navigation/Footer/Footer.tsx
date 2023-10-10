@@ -6,6 +6,7 @@ import { useDesktopDown } from 'hooks/useMediaQuery';
 type FooterPropsT = {
   classProp?: string;
 };
+import Link from 'next/link';
 
 const Footer = ({ classProp = '' }: FooterPropsT) => {
   const isDesktopDown = useDesktopDown();
@@ -38,76 +39,36 @@ const Footer = ({ classProp = '' }: FooterPropsT) => {
           {/* RESOURCES  */}
           <div className={styles.link_block}>
             <h4>Resources</h4>
-            <a
-              target="_blank"
-              rel="noreferrer"
-              href="#"
-              className={styles.link}
-            >
+            <Link href="/resources" className={styles.link}>
               Books
-            </a>
-            <a
-              target="_blank"
-              rel="noreferrer"
-              href="#"
-              className={styles.link}
-            >
-              Blogs
-            </a>
-            <a
-              target="_blank"
-              rel="noreferrer"
-              href="https://hubs.mozilla.com/spoke/"
-              className={styles.link}
-            >
+            </Link>
+            <Link href="/resources" className={styles.link}>
               Podcasts
-            </a>
+            </Link>
           </div>
 
           {/* SUPPORT  */}
           <div className={styles.link_block}>
             <h4>My Learning Paths</h4>
-            <a
-              target="_blank"
-              rel="noreferrer"
-              href="#"
-              className={styles.link}
-            >
-              Elixir
-            </a>
-            <a
-              target="_blank"
-              rel="noreferrer"
-              href="#"
-              className={styles.link}
-            >
+            <Link href="/learning" className={styles.link}>
               Python
-            </a>
-            <a
-              target="_blank"
-              rel="noreferrer"
-              href="#"
-              className={styles.link}
-            >
+            </Link>
+            <Link href="/learning" className={styles.link}>
               Javascript
-            </a>
+            </Link>
+            <Link href="/learning" className={styles.link}>
+              Elixir
+            </Link>
           </div>
 
           {/* MORE  */}
           <div className={styles.link_block}>
             <h4>Other Profiles</h4>
+
             <a
               target="_blank"
               rel="noreferrer"
-              href="https://hubs.mozilla.com/cloud/"
-              className={styles.link}
-            >
-              Twitter
-            </a>
-            <a
-              target="_blank"
-              rel="noreferrer"
-              href="https://mozilla-na.myspreadshop.com/"
+              href="https://github.com/nickgrato"
               className={styles.link}
             >
               Github
@@ -115,10 +76,18 @@ const Footer = ({ classProp = '' }: FooterPropsT) => {
             <a
               target="_blank"
               rel="noreferrer"
-              href="https://mozilla-na.myspreadshop.com/"
+              href="https://www.linkedin.com/in/nick-grato-94598793/"
               className={styles.link}
             >
               LinkedIn
+            </a>
+            <a
+              target="_blank"
+              rel="noreferrer"
+              href="https://twitter.com/grato_was_taken"
+              className={styles.link}
+            >
+              X
             </a>
           </div>
         </div>
@@ -129,17 +98,37 @@ const Footer = ({ classProp = '' }: FooterPropsT) => {
         <div className={styles.submenu_wrapper}>
           <div className={styles.submenu_links}>
             <span>Created with:</span>
-            <a target="_blanks" className={styles.submenu_link} href="#">
+            <a
+              target="_blanks"
+              className={styles.submenu_link}
+              rel="noreferrer"
+              href="https://nextjs.org/"
+            >
               NextJs
             </a>
-            <a target="_blanks" className={styles.submenu_link} href="#">
+            <a
+              target="_blanks"
+              className={styles.submenu_link}
+              rel="noreferrer"
+              href="https://vercel.com/"
+            >
+              Vercel
+            </a>
+            <a
+              target="_blanks"
+              className={styles.submenu_link}
+              rel="noreferrer"
+              href="https://www.npmjs.com/package/@mozilla/lilypad-ui"
+            >
               Lilypad
             </a>
-            <a target="_blanks" className={styles.submenu_link} href="#">
+            <a
+              target="_blanks"
+              className={styles.submenu_link}
+              rel="noreferrer"
+              href="https://www.contentful.com/"
+            >
               Contentful
-            </a>
-            <a target="_blanks" className={styles.submenu_link} href="#">
-              Netlify
             </a>
           </div>
         </div>

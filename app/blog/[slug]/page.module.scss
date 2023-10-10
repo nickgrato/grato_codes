@@ -4,6 +4,10 @@
   display: flex;
   justify-content: center;
   padding: 40px;
+
+  @include tablet-down {
+    padding: 20px;
+  }
 }
 
 .container {
@@ -17,8 +21,14 @@
     margin-bottom: 12px;
   }
 
-  h3 {
+  h3,
+  h2 {
     @include heading-lg;
     margin: 40px 0;
+  }
+
+  img {
+    width: 100%;
+    padding: 20px 0;
   }
 }

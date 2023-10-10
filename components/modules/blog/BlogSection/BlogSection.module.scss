@@ -17,8 +17,7 @@
 
 .content {
   display: grid;
-  grid-template-columns: 48% 48%;
-  grid-gap: 4%;
+  grid-template-columns: 50% 50%;
 
   @include tablet-down {
     grid-template-columns: 100%;

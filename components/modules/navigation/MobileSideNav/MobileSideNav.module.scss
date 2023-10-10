@@ -10,10 +10,10 @@
   }
 
   &_wrapper {
+    background: $color-background-reverse;
     height: 100%;
     width: 100%;
     max-width: 327px;
-    background-color: $color-background-neutral-0;
     box-shadow: $drop-shadow-right;
     z-index: 2;
     position: fixed;
@@ -35,6 +35,13 @@
 
   &_link {
     @include navigation-link;
+  }
+
+  &_links {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding: 24px;
   }
 }
 

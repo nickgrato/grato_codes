@@ -51,11 +51,9 @@ export default function RootLayout({
           href="/favicon-16x16.png"
         /> */}
       </head>
-      <body>
-        <main
-          className={`${inter.variable} ${space_grotesk.variable}`}
-          data-theme="zebra"
-        >
+      <body className={`${inter.variable} ${space_grotesk.variable}`}>
+        <div id="LP_modal_portal"></div>
+        <main data-theme="zebra">
           <Nav />
           <div className="page_wrapper">{children}</div>
           <Footer />
