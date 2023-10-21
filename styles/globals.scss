@@ -49,3 +49,10 @@ GLOBAL PAGE STYLES
   min-height: calc(100vh - 532px);
   margin-top: 80px;
 }
+
+hr {
+  border: none;
+  height: 2px;
+  background: $gradient-rainbow;
+  margin: 20px auto;
+}

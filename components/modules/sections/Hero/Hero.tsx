@@ -1,9 +1,9 @@
-import styles from './Hero.module.scss';
-import { Button } from '@mozilla/lilypad-ui';
-import { HeroT } from 'types';
+import styles from './Hero.module.scss'
+import { Button } from '@mozilla/lilypad-ui'
+import { HeroT } from 'types'
 
 interface HeroPropsI extends HeroT {
-  classProp?: string;
+  classProp?: string
 }
 
 const Hero = ({
@@ -34,7 +34,7 @@ const Hero = ({
         </div>
       </div>
     </section>
-  );
-};
+  )
+}
 
-export default Hero;
+export default Hero
