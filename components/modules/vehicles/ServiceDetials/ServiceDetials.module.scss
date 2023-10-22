@@ -1,0 +1,15 @@
+@use 'styles/core/boilerplate' as *;
+
+.wrapper {
+  @include body-md;
+  padding: 20px 0;
+  border-top: solid 2px $color-border-1;
+
+  h3 {
+    text-transform: capitalize;
+  }
+}
+.actions {
+  display: flex;
+  justify-content: flex-end;
+}

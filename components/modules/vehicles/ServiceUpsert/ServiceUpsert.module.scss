@@ -1,0 +1,14 @@
+@use 'styles/core/boilerplate' as *;
+
+.wrapper {
+  @include body-md;
+
+  h2 {
+    text-transform: capitalize;
+  }
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+}

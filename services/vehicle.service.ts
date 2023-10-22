@@ -21,6 +21,7 @@ export type ServiceT = {
   id: string
   service: string
   title: string
+  vehicle_mileage: number
 }
 
 export const getVehicles = async (): Promise<VehicleT[]> => {
