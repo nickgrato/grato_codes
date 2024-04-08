@@ -10,7 +10,6 @@ import {
   useState,
   useCallback,
 } from 'react'
-import { clearChat } from 'services/openAi.service'
 import { Button, Input } from '@mozilla/lilypad-ui'
 import styles from './ChatContainer.module.scss'
 import ChatMessage from '../ChatMessage/ChatMessage'
@@ -23,12 +22,14 @@ type ChatContainerPropsT = {
   userChatMeta?: UserChatMetaT
   onMessageDispatch: Function
   onInject?: Function
+  onClearChat?: Function
   messagesClassName?: string
   className?: string
 }
 
 export type ChatContainerT = {
   setMessage: (message: MessageT) => void
+  setDefaultConversation: (message: MessageT[]) => void
 }
 
 const ChatContainer = forwardRef(
@@ -43,6 +44,7 @@ const ChatContainer = forwardRef(
       },
       onMessageDispatch,
       onInject,
+      onClearChat,
       className = '',
       messagesClassName = '',
     }: ChatContainerPropsT,
@@ -67,8 +69,13 @@ const ChatContainer = forwardRef(
     useImperativeHandle(ref, () => {
       return {
         setMessage,
+        setDefaultConversation,
       }
     })
+
+    const setDefaultConversation = (messages: MessageT[]) => {
+      setMessages(messages)
+    }
 
     const setMessage = useCallback((message: MessageT) => {
       setMessages((state) => [...state, message])
@@ -83,16 +90,6 @@ const ChatContainer = forwardRef(
 
       setLoading(false)
     }, [])
-
-    const onClearChat = async () => {
-      setMessages([])
-
-      try {
-        await clearChat()
-      } catch (error) {
-        console.log('error', error)
-      }
-    }
 
     const handleSubmit = () => {
       const messageObj: MessageT = {
@@ -112,7 +109,9 @@ const ChatContainer = forwardRef(
             text="Clear chat"
             category="primary_clear"
             icon="refresh-cw"
-            onClick={onClearChat}
+            onClick={() => {
+              onClearChat && onClearChat()
+            }}
           />
         </div>
 

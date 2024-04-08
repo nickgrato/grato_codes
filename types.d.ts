@@ -46,7 +46,7 @@ export type UserChatMetaT = {
 }
 
 // This needs to follow openAI convention
-export type RoleT = 'user' | 'assistant'
+export type RoleT = 'user' | 'assistant' | 'system'
 
 export type MessageT = {
   role: Role
@@ -135,3 +135,6 @@ export type BlogT = {
 export type BlogPageT = {
   post: BlogPostT
 }
+
+export type ChatRoleT = 'assistant' | 'user'
+export type ChatMessageT = { role: ChatRoleT; content: string }

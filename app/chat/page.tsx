@@ -19,13 +19,21 @@ import {
   updateArtifact,
 } from 'services/artifacts.service'
 import SkeletonCard from '@Shared/SkeletonCard/SkeletonCard'
+import { MessageT } from 'types'
 
 const MarkDownEditor = dynamic(
   () => import('@Modules/chat/MarkDownEditor/MarkDownEditor'),
   { ssr: false },
 )
 
+const initConvo = {
+  role: 'system',
+  content:
+    'Asstant is a virtual entity born from the essence of clean code and the wisdom of countless programming hours.',
+}
+
 const Page = () => {
+  const storedChatHistory = localStorage.getItem('chatHistory')
   const chatRef = useRef<ChatContainerT>(null)
   const [showScratchPad, setShowScratchPad] = useState(false)
   const [markDownContent, setMarkDownContent] = useState('# Start Scratch Pad')
@@ -37,11 +45,23 @@ const Page = () => {
   const [editingArtifact, setEditingArtifact] = useState<string | undefined>(
     undefined,
   )
+  const chatHistory = useRef<MessageT[]>(
+    storedChatHistory ? JSON.parse(storedChatHistory) : [initConvo],
+  )
 
   const onMessageDispatch = async (message: string) => {
+    chatHistory.current = [
+      ...chatHistory.current,
+      { role: 'user', content: message },
+    ]
+
     // need to call the ai here.
-    const resp = await getResponse(message)
-    console.log('resp', resp)
+    const resp = await getResponse(chatHistory.current)
+
+    localStorage.setItem(
+      'chatHistory',
+      JSON.stringify([...chatHistory.current, resp]),
+    )
     chatRef.current?.setMessage(resp)
   }
 
@@ -49,7 +69,6 @@ const Page = () => {
     const getData = async () => {
       try {
         const data = await getArtifacts()
-        console.log('test arti', data)
         setArtifacts(data)
         setLoadingArtifacts(false)
       } catch (error) {
@@ -58,15 +77,23 @@ const Page = () => {
     }
 
     getData()
+
+    if (chatHistory.current.length > 1) {
+      chatRef.current?.setDefaultConversation(chatHistory.current)
+    }
   }, [])
 
   const inject = (markdown: string) => {
     const formattedMarkdown = markdown.replace(/```/g, '`')
-    console.log('markdown', markdown)
-    console.log('formattedMarkdown', formattedMarkdown)
     setMarkDownKey((state) => state + 1)
     setMarkDownContent(formattedMarkdown)
     setShowScratchPad(true)
+  }
+
+  const clearChat = () => {
+    chatHistory.current = []
+    localStorage.setItem('chatHistory', JSON.stringify([]))
+    chatRef.current?.setDefaultConversation([])
   }
 
   const handleDelete = async (idToDelete: string) => {
@@ -137,6 +164,9 @@ const Page = () => {
             title="How can I help?"
             onMessageDispatch={onMessageDispatch}
             onInject={inject}
+            onClearChat={() => {
+              clearChat()
+            }}
             userChatMeta={{
               avatar: 'https://api.dicebear.com/7.x/bottts/png?seed=fun',
               name: 'User',

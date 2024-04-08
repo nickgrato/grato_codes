@@ -9,17 +9,9 @@ const PROTOCOLS = {
   },
 }
 
-export const getResponse = async (message: string): Promise<MessageT> => {
+export const getResponse = async (messages: MessageT[]): Promise<MessageT> => {
   const data = await axios
-    .post(`${URL}/chat`, { message: message }, { ...PROTOCOLS })
-    .then(({ data }: AxiosResponse) => data.response)
-
-  return data
-}
-
-export const clearChat = async () => {
-  const data = await axios
-    .post(`${URL}/clear-chat`, {}, { ...PROTOCOLS })
+    .post(`${URL}/chat`, { messages: messages }, { ...PROTOCOLS })
     .then(({ data }: AxiosResponse) => data.response)
 
   return data

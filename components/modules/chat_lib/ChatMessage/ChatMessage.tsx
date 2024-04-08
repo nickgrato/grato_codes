@@ -1,6 +1,6 @@
 'use client'
 import styles from './ChatMessage.module.scss'
-import { Avatar, Button } from '@mozilla/lilypad-ui'
+import { Avatar, Button, CopyButton } from '@mozilla/lilypad-ui'
 import { MessageT, UserChatMetaT } from 'types'
 import Markdown from 'react-markdown'
 
@@ -38,7 +38,7 @@ const MessageBubble = ({
         </div>
         {hasActions && (
           <div className={styles.actions}>
-            <Button icon="copy" classProp="mr-12" />
+            <CopyButton value={message} classProp="mr-12" />
             <Button
               icon="edit-3"
               onClick={() => {
@@ -70,7 +70,7 @@ const ChatMessage = ({
 
   return (
     <div>
-      {message.role === 'assistant' ? (
+      {message.role === 'assistant' && (
         <MessageBubble
           message={message.content}
           userChatMeta={aiChatMeta}
@@ -80,7 +80,8 @@ const ChatMessage = ({
           }}
           hasActions={true}
         />
-      ) : (
+      )}
+      {message.role === 'user' && (
         <MessageBubble
           userChatMeta={userChatMeta}
           message={message.content}
