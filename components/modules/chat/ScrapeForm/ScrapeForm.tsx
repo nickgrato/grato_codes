@@ -83,6 +83,7 @@ const ScrapeForm = () => {
             promptInputs.map(({ name, value }, i) => {
               return (
                 <PromptInput
+                  key={i}
                   value={value}
                   name={name}
                   onDelete={() => {

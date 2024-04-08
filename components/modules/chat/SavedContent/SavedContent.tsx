@@ -160,7 +160,7 @@ const SavedContent = ({
                   { value: CLEAR_FILTER, title: CLEAR_FILTER },
                   ...options,
                 ]}
-                onChange={(e) => {
+                onChange={(e: any) => {
                   setFilterBy(e.target.value)
                 }}
               />

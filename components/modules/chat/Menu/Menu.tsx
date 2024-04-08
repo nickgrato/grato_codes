@@ -9,9 +9,12 @@ import { useDesktopDown } from 'hooks/useMediaQuery'
 import Link from 'next/link'
 import ContactModal from '@Modals/ContactModal/ContactModal'
 
-type MenuPropsT = {}
+type MenuPropsT = {
+  mobileMenuClick?: Function
+  classProp?: string
+}
 
-const Menu = ({ navData, mobileMenuClick, classProp = '' }: MenuPropsT) => {
+const Menu = ({ mobileMenuClick, classProp = '' }: MenuPropsT) => {
   const [isContactModalVisible, setIsContactModalVisible] = useState(false)
 
   /**

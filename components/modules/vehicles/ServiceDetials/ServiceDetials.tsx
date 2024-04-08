@@ -1,8 +1,7 @@
-import { ServiceT } from 'services/vehicle.service'
 import styles from './ServiceDetials.module.scss'
 import { Button } from '@mozilla/lilypad-ui'
 type ServiceDetailsPropsT = {
-  service: ServiceT
+  service: any
   onEdit: (id: string) => void
 }
 

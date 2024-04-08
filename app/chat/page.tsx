@@ -25,7 +25,7 @@ const MarkDownEditor = dynamic(
   { ssr: false },
 )
 
-const page = () => {
+const Page = () => {
   const chatRef = useRef<ChatContainerT>(null)
   const [showScratchPad, setShowScratchPad] = useState(false)
   const [markDownContent, setMarkDownContent] = useState('# Start Scratch Pad')
@@ -258,4 +258,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Page
