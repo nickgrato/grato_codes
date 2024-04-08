@@ -1,33 +1,33 @@
-import { useCallback, useState } from 'react';
-import styles from './MainNav.module.scss';
-import { Button, Modal, Icon } from '@mozilla/lilypad-ui';
-import { NavigationT } from 'types';
-import Logo from '@Shared/Logo/Logo';
-import { useDesktopDown } from 'hooks/useMediaQuery';
-import Link from 'next/link';
-import ContactModal from '@Modals/ContactModal/ContactModal';
+import { useCallback, useState } from 'react'
+import styles from './MainNav.module.scss'
+import { Button, Modal, Icon } from '@mozilla/lilypad-ui'
+import { NavigationT } from 'types'
+import Logo from '@Shared/Logo/Logo'
+import { useDesktopDown } from 'hooks/useMediaQuery'
+import Link from 'next/link'
+import ContactModal from '@Modals/ContactModal/ContactModal'
 
 type MainNavPropsT = {
-  navData?: NavigationT;
-  mobileMenuClick: () => void;
-  classProp?: string;
-};
+  navData?: NavigationT
+  mobileMenuClick: () => void
+  classProp?: string
+}
 
 const MainNav = ({
   navData,
   mobileMenuClick,
   classProp = '',
 }: MainNavPropsT) => {
-  const [isContactModalVisible, setIsContactModalVisible] = useState(false);
+  const [isContactModalVisible, setIsContactModalVisible] = useState(false)
 
   /**
    * Handle Menu Click
    */
   const handleMobileMenuClick = useCallback(() => {
-    mobileMenuClick && mobileMenuClick();
-  }, [mobileMenuClick]);
+    mobileMenuClick && mobileMenuClick()
+  }, [mobileMenuClick])
 
-  const isDesktopDown = useDesktopDown();
+  const isDesktopDown = useDesktopDown()
 
   /**
    * Main Nav JSX
@@ -78,9 +78,13 @@ const MainNav = ({
               <div className="flex-align-center">
                 <div className={styles.main_nav_actions}>
                   <Button
+                    classProp="mr-12"
                     text="Contact"
                     onClick={() => setIsContactModalVisible(true)}
                   />
+                  <Link href="/login">
+                    <Button text="login" category="secondary_outline" />
+                  </Link>
                 </div>
               </div>
             )}
@@ -94,7 +98,7 @@ const MainNav = ({
         <ContactModal />
       </Modal>
     </>
-  );
-};
+  )
+}
 
-export default MainNav;
+export default MainNav

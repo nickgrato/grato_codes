@@ -1,35 +1,35 @@
-import { useCallback } from 'react';
-import { Button } from '@mozilla/lilypad-ui';
-import { useRouter } from 'next/navigation';
-import styles from './MobileSideNav.module.scss';
-import Link from 'next/link';
+import { useCallback } from 'react'
+import { Button } from '@mozilla/lilypad-ui'
+import { useRouter } from 'next/navigation'
+import styles from './MobileSideNav.module.scss'
+import Link from 'next/link'
 
 type MobileSideNavPropsT = {
-  isOpen: boolean;
-  MobileMenuClick: Function;
-};
+  isOpen: boolean
+  MobileMenuClick: Function
+}
 
 const MobileSideNav = ({
   isOpen = false,
   MobileMenuClick,
 }: MobileSideNavPropsT) => {
-  const router = useRouter();
+  const router = useRouter()
 
   /**
    * Handle Menu Click
    */
   const handleMobileMenuClick = useCallback(() => {
-    MobileMenuClick();
-  }, [MobileMenuClick]);
+    MobileMenuClick()
+  }, [MobileMenuClick])
 
   /**
    * Handle See Pricing Click
    */
   const handleGetStartedClick = useCallback(() => {
     // TODO bubble up scroll to...
-    MobileMenuClick();
-    router.push('/#subscribe');
-  }, [MobileMenuClick, router]);
+    MobileMenuClick()
+    router.push('/#subscribe')
+  }, [MobileMenuClick, router])
 
   return (
     <>
@@ -82,11 +82,19 @@ const MobileSideNav = ({
             >
               Portfolio
             </Link>
+
+            <Link
+              href="/login"
+              className={styles.nav_link}
+              onClick={handleMobileMenuClick}
+            >
+              Login
+            </Link>
           </div>
         </div>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default MobileSideNav;
+export default MobileSideNav

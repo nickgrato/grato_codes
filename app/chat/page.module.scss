@@ -1,0 +1,71 @@
+@use 'styles/core/boilerplate' as *;
+
+.page {
+  background: $color-background-overlay;
+  min-height: calc(100vh - 80px);
+  margin-top: 80px;
+  color: $color-text-main;
+
+  input {
+    background: transparent;
+  }
+}
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.container {
+  padding: 40px;
+  display: grid;
+  grid-template-columns: 1fr 550px;
+  gap: 12px;
+  max-height: calc(100vh - 160px);
+  max-width: $max-container-width;
+  width: 100%;
+}
+
+.chat {
+  &_container {
+    max-height: calc(100vh - 380px);
+    overflow-y: auto;
+  }
+}
+
+.side_panel {
+  display: flex;
+  flex-direction: column;
+
+  &_header {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 12px;
+
+    .tab_link {
+      border-radius: 0;
+      transition: border 0.5s;
+      &_active {
+        border-bottom: solid $color-interaction-primary 2px;
+      }
+    }
+  }
+
+  &_content {
+    max-height: calc(100vh - 130px);
+    overflow: hidden;
+  }
+}
+
+.scratch_pad {
+  &_wrapper form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+}
+
+.markdown_wrapper {
+  max-height: calc(100vh - 580px);
+  overflow-y: auto;
+}

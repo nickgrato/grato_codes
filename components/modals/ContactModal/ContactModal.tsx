@@ -1,11 +1,11 @@
-import { Icon, IconT } from '@mozilla/lilypad-ui';
+import { Icon, IconT, Notification } from '@mozilla/lilypad-ui'
 
 const ContactModal = () => {
   type ContactLinkT = {
-    icon: IconT;
-    href: string;
-    label: string;
-  };
+    icon: IconT
+    href: string
+    label: string
+  }
 
   const data: ContactLinkT[] = [
     {
@@ -23,7 +23,7 @@ const ContactModal = () => {
       href: 'https://github.com/nickgrato',
       label: 'GitHub',
     },
-  ];
+  ]
 
   return (
     <>
@@ -51,7 +51,7 @@ const ContactModal = () => {
         ))}
       </div>
     </>
-  );
-};
+  )
+}
 
-export default ContactModal;
+export default ContactModal

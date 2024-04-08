@@ -1,0 +1,19 @@
+@use 'styles/core/boilerplate' as *;
+
+.wrapper {
+  padding: 24px;
+  border-radius: 20px;
+  color: $color-text-reverse;
+}
+
+.info {
+  background: $color-semantic-info;
+}
+
+.warning {
+  background: $color-semantic-warning;
+}
+
+.critical {
+  background: $color-semantic-critical;
+}

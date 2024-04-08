@@ -10,6 +10,7 @@ $backup-font: 'Times New Roman';
   BRAND COLORS
 **/
 $color-brand-1: var(--color-brand-1);
+$color-brand-2: var(--color-brand-2);
 
 /**
   PRIMARY INTERACTION
@@ -118,6 +119,8 @@ $color-background-modal-overlay: var(--color-background-modal-overlay);
 $color-background-neutral-0: var(--color-background-neutral-0);
 $color-background-critical: var(--color-background-critical);
 $color-background-reverse: var(--color-background-reverse);
+$color-background-chat-outgoing: var(--color-background-chat-outgoing);
+$color-background-chat-incomming: var(--color-background-chat-incomming);
 
 /**
   MENU
@@ -125,6 +128,11 @@ $color-background-reverse: var(--color-background-reverse);
 $color-interactions-menu: var(--color-interactions-menu);
 $color-interactions-menu-hover: var(--color-interactions-menu-hover);
 $color-interactions-menu-inactive: var(--color-interactions-menu-inactive);
+
+/**
+  LAYOUT
+**/
+$max-container-width: var(--max-container-width);
 
 // ---- Primary Brand Colors ---------------------
 $black: #231f20;

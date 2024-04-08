@@ -1,0 +1,32 @@
+@use 'styles/core/boilerplate' as *;
+
+.artifacts {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-height: calc(100vh - 290px);
+  overflow-y: scroll;
+  scrollbar-width: none; /* Firefox */
+
+  &::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, and Opera */
+    overflow: auto; /* Allow scrolling */
+  }
+}
+
+.artifact {
+  padding: 20px;
+  border-bottom: 1px solid $color-text-reverse;
+  background-color: $color-background-neutral-0;
+  border-radius: 12px;
+}
+
+.label {
+  @include body-md-bold;
+  margin-bottom: 12px;
+}
+
+.preview {
+  @include body-sm;
+  margin-bottom: 12px;
+}

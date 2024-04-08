@@ -1,0 +1,56 @@
+@use 'styles/core/boilerplate' as *;
+
+.container {
+  color: $color-text-reverse;
+}
+
+.theme {
+  /* Accent Colors */
+  --accentBase: #ff4136;
+  --accentBgSubtle: #e62e23;
+  --accentBg: #cc2919;
+  --accentBgHover: #b02615;
+  --accentBgActive: #990f00;
+  --accentLine: #730c00;
+  --accentBorder: #4d0000;
+  --accentBorderHover: #330000;
+  --accentSolid: #1a0000;
+  --accentSolidHover: #000000;
+  --accentText: #ffffff;
+  --accentTextContrast: #e6e6e6;
+
+  /* Base Colors */
+  --baseBase: #998fa2;
+  --baseBgSubtle: #7f7688;
+  --baseBg: #665a6f;
+  --baseBgHover: #4c4255;
+  --baseBgActive: #33293b;
+  --baseLine: #1a111c;
+  --baseBorder: #000000;
+  --baseBorderHover: #000000;
+  --baseSolid: #000000;
+  --baseSolidHover: #000000;
+  --baseText: #ffffff;
+  --baseTextContrast: #e6e6e6;
+
+  /* Admonition Colors */
+  --admonitionTipBg: #00ffff;
+  --admonitionTipBorder: #007070;
+
+  --admonitionInfoBg: #00ff00;
+  --admonitionInfoBorder: #007000;
+
+  --admonitionCautionBg: #ffbf00;
+  --admonitionCautionBorder: #7f7000;
+
+  --admonitionDangerBg: #ff4136;
+  --admonitionDangerBorder: #7f0f00;
+
+  --admonitionNoteBg: #665a6f;
+  --admonitionNoteBorder: #4c4255;
+
+  /* Additional Styling */
+  color: var(--baseText);
+  --basePageBg: #000000;
+  background: var(--basePageBg);
+}

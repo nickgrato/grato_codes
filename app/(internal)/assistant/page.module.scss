@@ -1,0 +1,7 @@
+@use 'styles/core/boilerplate' as *;
+
+.page {
+  background: $color-background-neutral-0;
+  min-height: 80vh;
+  color: $color-text-main;
+}

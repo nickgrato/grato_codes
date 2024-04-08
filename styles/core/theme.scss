@@ -1,9 +1,48 @@
+div[data-theme='buzz'] {
+  --color-interaction-primary: #e36d28;
+  --color-interaction-primary-hover: #aa4810;
+
+  --color-background-neutral-0: #101010;
+
+  --color-neutral-0: #101010;
+
+  --color-text-main: #bcbcbc;
+
+  --color-background-subtle-callout: #2d2d2d;
+
+  --color-border-1: #272727;
+
+  --button-border-radius: 10px;
+}
+
+div[data-theme='chat'] {
+  --color-interaction-primary: #00de9b;
+  --color-interaction-primary-active: #00de9b;
+  --color-interaction-primary-hover: rgb(104, 199, 105);
+
+  --color-background-neutral-0: #242f37;
+
+  --color-background-overlay: #181717;
+
+  --color-neutral-0: #101010;
+
+  --color-text-main: #f3f3f3;
+  --color-text-reverse: #101010;
+
+  --color-background-subtle-callout: #162129;
+
+  --color-border-1: #878787;
+
+  --button-border-radius: 10px;
+}
+
 main[data-theme='zebra'],
 :root {
   /**
   BRAND COLORS
   **/
-  --color-brand-1: #ff806f;
+  --color-brand-1: #5b40ae;
+  --color-brand-2: #383838;
 
   /**
   PRIMARY INTERACTION
@@ -98,6 +137,8 @@ main[data-theme='zebra'],
   --color-background-neutral-0: #ffffff;
   --color-background-reverse: #000000;
   --color-background-critical: #f9e1e5;
+  --color-background-chat-outgoing: #1b85ee;
+  --color-background-chat-incomming: #242f37;
 
   /**
   MENU
@@ -105,4 +146,12 @@ main[data-theme='zebra'],
   --color-interactions-menu: #000000;
   --color-interactions-menu-hover: #2f2f2f;
   --color-interactions-menu-inactive: #757575;
+
+  --button-border-radius: 10px;
+
+  /**
+  LAYOUT
+  **/
+
+  --max-container-width: 1800px;
 }
