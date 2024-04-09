@@ -33,7 +33,6 @@ const initConvo = {
 }
 
 const Page = () => {
-  const storedChatHistory = localStorage.getItem('chatHistory')
   const chatRef = useRef<ChatContainerT>(null)
   const [showScratchPad, setShowScratchPad] = useState(false)
   const [markDownContent, setMarkDownContent] = useState('# Start Scratch Pad')
@@ -45,9 +44,14 @@ const Page = () => {
   const [editingArtifact, setEditingArtifact] = useState<string | undefined>(
     undefined,
   )
-  const chatHistory = useRef<MessageT[]>(
-    storedChatHistory ? JSON.parse(storedChatHistory) : [initConvo],
-  )
+  const chatHistory = useRef<MessageT[]>([initConvo])
+
+  useEffect(() => {
+    const storedChatHistory = localStorage.getItem('chatHistory')
+    chatHistory.current = storedChatHistory
+      ? JSON.parse(storedChatHistory)
+      : [initConvo]
+  }, [])
 
   const onMessageDispatch = async (message: string) => {
     chatHistory.current = [

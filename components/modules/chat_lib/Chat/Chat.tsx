@@ -11,10 +11,10 @@ const Chat = () => {
   const chatRef = useRef<ChatContainerT>(null)
 
   const onMessageDispatch = async (message: string) => {
-    // need to call the ai here.
-    const resp = await getResponse(message)
-    console.log('resp', resp)
-    chatRef.current?.setMessage(resp)
+    // // need to call the ai here.
+    // const resp = await getResponse(message)
+    // console.log('resp', resp)
+    // chatRef.current?.setMessage(resp)
   }
 
   return (
