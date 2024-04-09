@@ -18,7 +18,8 @@ export const login = async (username: string, password: string) => {
       .post(`${URL}/login`, body)
       .then(({ data }: AxiosResponse) => data)
 
-    setCookie(cookiesE.GRATO_TOKEN, data.access_token)
+    const expiration = new Date(new Date().setDate(new Date().getDate() + 30))
+    setCookie(cookiesE.GRATO_TOKEN, data.access_token, { expires: expiration })
 
     return { msg: 'success' }
   } catch (error) {
