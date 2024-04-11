@@ -1,0 +1,26 @@
+@use 'styles/core/boilerplate' as *;
+
+.page {
+  background: $color-background-overlay;
+  min-height: calc(100vh - 80px);
+  margin-top: 80px;
+  color: $color-text-main;
+
+  input {
+    background: transparent;
+  }
+}
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+  padding: 24px;
+}
+
+.card {
+  width: 700px;
+
+  @include tablet-down {
+    width: 100%;
+  }
+}

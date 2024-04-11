@@ -28,7 +28,7 @@ const Chat = () => {
           setIsChatVisible(true)
         }}
       />
-      <Modal isVisible={isChatVisible} onClose={() => setIsChatVisible(false)}>
+      {/* <Modal isVisible={isChatVisible} onClose={() => setIsChatVisible(false)}>
         <ChatContainer
           ref={chatRef}
           title="How may I help you?"
@@ -39,7 +39,7 @@ const Chat = () => {
             avatarAlt: 'U',
           }}
         ></ChatContainer>
-      </Modal>
+      </Modal> */}
     </>
   )
 }

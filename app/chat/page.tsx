@@ -1,25 +1,35 @@
 'use client'
 
-import { useRef, useState, useEffect, FormEvent, ChangeEvent } from 'react'
+import {
+  useRef,
+  useState,
+  useEffect,
+  FormEvent,
+  ChangeEvent,
+  useCallback,
+} from 'react'
 import { getResponse } from 'services/openAi.service'
 import ChatContainer, {
   ChatContainerT,
+  LlmT,
 } from '@Modules/chat_lib/ChatContainer/ChatContainer'
 import Menu from '@Modules/chat/Menu/Menu'
 // import ScrapeForm from '@Modules/chat/ScrapeForm/ScrapeForm'
 import SavedContent from '@Modules/chat/SavedContent/SavedContent'
 import styles from './page.module.scss'
-import { ArtifactT, NewArtifactT } from 'models/Artifacts'
+import { ArtifactT } from 'models/Artifacts'
 import dynamic from 'next/dynamic'
-import { deleteArtifactById } from 'services/artifacts.service'
-import { Button, Input } from '@mozilla/lilypad-ui'
+import { Button, Input, Dropdown, dropdownT } from '@mozilla/lilypad-ui'
 import {
+  deleteArtifactById,
   getArtifacts,
   addArtifact,
   updateArtifact,
 } from 'services/artifacts.service'
 import SkeletonCard from '@Shared/SkeletonCard/SkeletonCard'
 import { MessageT } from 'types'
+import { getUser } from 'services/users.service'
+import { getLlamaResponse } from 'services/llamaFile.service'
 
 const MarkDownEditor = dynamic(
   () => import('@Modules/chat/MarkDownEditor/MarkDownEditor'),
@@ -34,7 +44,9 @@ const initConvo = {
 
 const Page = () => {
   const chatRef = useRef<ChatContainerT>(null)
+  const dropdownRef = useRef<dropdownT>(null)
   const [showScratchPad, setShowScratchPad] = useState(false)
+  const [apiKey, setApiKey] = useState('')
   const [markDownContent, setMarkDownContent] = useState('# Start Scratch Pad')
   const [loadingArtifact, setLoadingArtifacts] = useState(true)
   const [artifacts, setArtifacts] = useState<ArtifactT[]>([])
@@ -45,6 +57,7 @@ const Page = () => {
     undefined,
   )
   const chatHistory = useRef<MessageT[]>([initConvo])
+  const [llm, setLlm] = useState<LlmT>('openAi')
 
   useEffect(() => {
     const storedChatHistory = localStorage.getItem('chatHistory')
@@ -53,21 +66,36 @@ const Page = () => {
       : [initConvo]
   }, [])
 
-  const onMessageDispatch = async (message: string) => {
-    chatHistory.current = [
-      ...chatHistory.current,
-      { role: 'user', content: message },
-    ]
+  useEffect(() => {
+    const getData = async () => {
+      const data = await getUser()
+      if (!data) return
+      data.obsidianKey && setApiKey(data.obsidianKey)
+    }
+    getData()
+  }, [])
 
-    // need to call the ai here.
-    const resp = await getResponse(chatHistory.current)
+  const onMessageDispatch = useCallback(
+    async (message: string, updateLlm: LlmT) => {
+      try {
+        chatHistory.current.push({ role: 'user', content: message })
+        // need to call the ai here.
+        console.log('updateLlm', updateLlm)
 
-    localStorage.setItem(
-      'chatHistory',
-      JSON.stringify([...chatHistory.current, resp]),
-    )
-    chatRef.current?.setMessage(resp)
-  }
+        const resp =
+          updateLlm === 'openAi'
+            ? await getResponse(chatHistory.current)
+            : await getLlamaResponse(chatHistory.current)
+
+        chatHistory.current.push(resp)
+        localStorage.setItem('chatHistory', JSON.stringify(chatHistory.current))
+        chatRef.current?.setMessage(resp)
+      } catch (error) {
+        console.log('error', error)
+      }
+    },
+    [llm],
+  )
 
   useEffect(() => {
     const getData = async () => {
@@ -156,27 +184,80 @@ const Page = () => {
       setShowScratchPad(false)
     } catch (error) {}
   }
+
+  const handleModelSelection = (llm: LlmT) => {
+    setLlm(llm)
+    dropdownRef.current?.closeDropdown()
+  }
+
   return (
     <section className={styles.page}>
       <Menu />
 
       <section className={styles.wrapper}>
         <section className={styles.container}>
-          <ChatContainer
-            messagesClassName={styles.chat_container}
-            ref={chatRef}
-            title="How can I help?"
-            onMessageDispatch={onMessageDispatch}
-            onInject={inject}
-            onClearChat={() => {
-              clearChat()
-            }}
-            userChatMeta={{
-              avatar: 'https://api.dicebear.com/7.x/bottts/png?seed=fun',
-              name: 'User',
-              avatarAlt: 'U',
-            }}
-          />
+          <div>
+            <div className="justify-between">
+              <h3 className="heading-xs">How can I help?</h3>
+              <div>
+                <Button
+                  classProp="mr-12"
+                  text="Clear chat"
+                  category="primary_outline"
+                  icon="refresh-cw"
+                  onClick={() => {
+                    clearChat()
+                  }}
+                />
+                <Dropdown
+                  alignment="right"
+                  width={210}
+                  ref={dropdownRef}
+                  cta={
+                    <Button
+                      classProp="mb-12"
+                      icon="chevron-down"
+                      text={`LLM: ${llm}`}
+                      label="toggle"
+                      category="primary_outline"
+                    />
+                  }
+                  content={
+                    <div className="p-12 flex-column">
+                      <Button
+                        text="OpenAI"
+                        label="OpenAI"
+                        category="primary_clear"
+                        onClick={() => {
+                          handleModelSelection('openAi')
+                        }}
+                      />
+                      <Button
+                        text="llama"
+                        label="llama"
+                        category="primary_clear"
+                        onClick={() => {
+                          handleModelSelection('llama')
+                        }}
+                      />
+                    </div>
+                  }
+                />
+              </div>
+            </div>
+            <ChatContainer
+              messagesClassName={styles.chat_container}
+              ref={chatRef}
+              onMessageDispatch={onMessageDispatch}
+              llm={llm}
+              onInject={inject}
+              userChatMeta={{
+                avatar: 'https://api.dicebear.com/7.x/bottts/png?seed=fun',
+                name: 'User',
+                avatarAlt: 'U',
+              }}
+            />
+          </div>
 
           <div className={styles.side_panel}>
             <div className={styles.side_panel_header}>
@@ -268,6 +349,7 @@ const Page = () => {
                 <div>
                   {!loadingArtifact && artifacts ? (
                     <SavedContent
+                      apiKey={apiKey}
                       artifacts={artifacts}
                       onInject={chatRef.current?.setMessage}
                       onDelete={handleDelete}

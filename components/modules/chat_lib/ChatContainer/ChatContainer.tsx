@@ -16,6 +16,8 @@ import ChatMessage from '../ChatMessage/ChatMessage'
 import TypingIndicator from '../TypingIndicator/TypingIndicator'
 import { MessageT, UserChatMetaT } from 'types'
 
+export type LlmT = 'openAi' | 'llama'
+
 type ChatContainerPropsT = {
   title?: string | ReactNode
   placeHolderText?: string
@@ -24,6 +26,7 @@ type ChatContainerPropsT = {
   onInject?: Function
   onClearChat?: Function
   messagesClassName?: string
+  llm: LlmT
   className?: string
 }
 
@@ -45,6 +48,7 @@ const ChatContainer = forwardRef(
       onMessageDispatch,
       onInject,
       onClearChat,
+      llm,
       className = '',
       messagesClassName = '',
     }: ChatContainerPropsT,
@@ -77,19 +81,22 @@ const ChatContainer = forwardRef(
       setMessages(messages)
     }
 
-    const setMessage = useCallback((message: MessageT) => {
-      setMessages((state) => [...state, message])
+    const setMessage = useCallback(
+      (message: MessageT) => {
+        setMessages((state) => [...state, message])
 
-      console.log('message', message)
+        console.log('message', message)
 
-      if (message.role === 'user') {
-        onMessageDispatch(message.content)
-        setLoading(true)
-        return
-      }
+        if (message.role === 'user') {
+          onMessageDispatch(message.content, llm)
+          setLoading(true)
+          return
+        }
 
-      setLoading(false)
-    }, [])
+        setLoading(false)
+      },
+      [llm],
+    )
 
     const handleSubmit = () => {
       const messageObj: MessageT = {
@@ -103,18 +110,6 @@ const ChatContainer = forwardRef(
 
     return (
       <section className={`${className} ${styles.wrapper}`}>
-        <div className="justify-between">
-          <h3 className="heading-xs">{title}</h3>
-          <Button
-            text="Clear chat"
-            category="primary_clear"
-            icon="refresh-cw"
-            onClick={() => {
-              onClearChat && onClearChat()
-            }}
-          />
-        </div>
-
         <div className={`${messagesClassName} ${styles.messages_container}`}>
           {messages.map((message, i) => (
             <ChatMessage

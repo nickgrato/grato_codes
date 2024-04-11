@@ -44,13 +44,13 @@ const Menu = ({ mobileMenuClick, classProp = '' }: MenuPropsT) => {
               {/* Links  */}
               {!isDesktopDown && (
                 <div className={styles.main_nav_links}>
-                  <Link href="/" className={styles.main_nav_link}>
-                    Home
+                  <Link href="/chat" className={styles.main_nav_link}>
+                    Chat
                   </Link>
 
-                  <Link href="/about" className={styles.main_nav_link}>
-                    About
-                  </Link>
+                  {/* <Link href="/chat/profile" className={styles.main_nav_link}>
+                    Profile
+                  </Link> */}
                 </div>
               )}
             </div>

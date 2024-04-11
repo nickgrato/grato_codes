@@ -1,6 +1,6 @@
 'use client'
 import { ArtifactT } from 'models/Artifacts'
-import { useState, ChangeEvent, useEffect } from 'react'
+import { useState, ChangeEvent, useEffect, useMemo } from 'react'
 import styles from './SavedContent.module.scss'
 import { truncateString } from 'utils/utils'
 import {
@@ -14,7 +14,7 @@ import {
 } from '@mozilla/lilypad-ui'
 import Markdown from 'react-markdown'
 import { MessageT } from 'types'
-import { saveArtifactToObsidian } from 'services/artifacts.service'
+import ObsidianApiService from 'services/obsidian.service'
 
 type ArtifactPropsT = {
   artifact: ArtifactT
@@ -67,6 +67,7 @@ const Artifact = ({
 }
 
 type SavedContentPropsT = {
+  apiKey: string
   artifacts: ArtifactT[]
   onInject?: (message: MessageT) => void
   onDelete: (id: string) => void
@@ -75,6 +76,7 @@ type SavedContentPropsT = {
 }
 
 const SavedContent = ({
+  apiKey,
   artifacts,
   onInject,
   onDelete,
@@ -90,6 +92,10 @@ const SavedContent = ({
   const [isModalVisible, setIsModalVisible] = useState(false)
   const [filterBy, setFilterBy] = useState(
     localStorage.getItem('filterBy') || CLEAR_FILTER,
+  )
+  const obsidianApiService = useMemo(
+    () => new ObsidianApiService(apiKey),
+    [apiKey],
   )
 
   /**
@@ -121,7 +127,7 @@ const SavedContent = ({
     if (!currentArtifact) return
 
     try {
-      const resp = saveArtifactToObsidian(currentArtifact)
+      const resp = obsidianApiService.addFileToFolder(currentArtifact)
       console.log('resp', resp)
     } catch (error) {
       console.log('error', error)

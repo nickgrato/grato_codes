@@ -138,3 +138,10 @@ export type BlogPageT = {
 
 export type ChatRoleT = 'assistant' | 'user'
 export type ChatMessageT = { role: ChatRoleT; content: string }
+
+export type UserT = {
+  id: string
+  username: string
+  email: string
+  obsidianKey: string
+}
