@@ -17,9 +17,9 @@ import Menu from '@Modules/chat/Menu/Menu'
 // import ScrapeForm from '@Modules/chat/ScrapeForm/ScrapeForm'
 import SavedContent from '@Modules/chat/SavedContent/SavedContent'
 import styles from './page.module.scss'
-import { ArtifactT } from 'models/Artifacts'
+import { ArtifactT, NewArtifactT } from 'models/Artifacts'
 import dynamic from 'next/dynamic'
-import { Button, Input, Dropdown, dropdownT } from '@mozilla/lilypad-ui'
+import { Button, Input, Dropdown, dropdownT, Modal } from '@mozilla/lilypad-ui'
 import {
   deleteArtifactById,
   getArtifacts,
@@ -28,8 +28,9 @@ import {
 } from 'services/artifacts.service'
 import SkeletonCard from '@Shared/SkeletonCard/SkeletonCard'
 import { MessageT } from 'types'
-import { getUser } from 'services/users.service'
+import { getObsidianData } from 'services/users.service'
 import { getLlamaResponse } from 'services/llamaFile.service'
+import DirectoryExplorer from '@Modules/chat/DirectoryExplorer/DirectoryExplorer'
 
 const MarkDownEditor = dynamic(
   () => import('@Modules/chat/MarkDownEditor/MarkDownEditor'),
@@ -58,6 +59,7 @@ const Page = () => {
   )
   const chatHistory = useRef<MessageT[]>([initConvo])
   const [llm, setLlm] = useState<LlmT>('openAi')
+  const [isModalVisible, setIsModalVisible] = useState(false)
 
   useEffect(() => {
     const storedChatHistory = localStorage.getItem('chatHistory')
@@ -68,9 +70,9 @@ const Page = () => {
 
   useEffect(() => {
     const getData = async () => {
-      const data = await getUser()
+      const data = await getObsidianData()
       if (!data) return
-      data.obsidianKey && setApiKey(data.obsidianKey)
+      data.apiKey && setApiKey(data.apiKey)
     }
     getData()
   }, [])
@@ -126,6 +128,10 @@ const Page = () => {
     chatHistory.current = []
     localStorage.setItem('chatHistory', JSON.stringify([]))
     chatRef.current?.setDefaultConversation([])
+  }
+
+  const onCloseModal = () => {
+    setIsModalVisible(false)
   }
 
   const handleDelete = async (idToDelete: string) => {
@@ -190,187 +196,240 @@ const Page = () => {
     dropdownRef.current?.closeDropdown()
   }
 
+  const onOpenObsidian = () => {
+    // do the modal here?
+    setIsModalVisible(true)
+  }
+
+  const onFileImport = ({ title, category, content }: NewArtifactT) => {
+    setIsModalVisible(false)
+    setArtifactTitle(title)
+    setArtifactCat(category)
+    setMarkDownContent(content)
+    setMarkDownKey((state) => state + 1)
+  }
+
   return (
-    <section className={styles.page}>
-      <Menu />
+    <>
+      <section className={styles.page}>
+        <Menu />
 
-      <section className={styles.wrapper}>
-        <section className={styles.container}>
-          <div>
-            <div className="justify-between">
-              <h3 className="heading-xs">How can I help?</h3>
-              <div>
-                <Button
-                  classProp="mr-12"
-                  text="Clear chat"
-                  category="primary_outline"
-                  icon="refresh-cw"
-                  onClick={() => {
-                    clearChat()
-                  }}
-                />
-                <Dropdown
-                  alignment="right"
-                  width={210}
-                  ref={dropdownRef}
-                  cta={
-                    <Button
-                      classProp="mb-12"
-                      icon="chevron-down"
-                      text={`LLM: ${llm}`}
-                      label="toggle"
-                      category="primary_outline"
-                    />
-                  }
-                  content={
-                    <div className="p-12 flex-column">
+        <section className={styles.wrapper}>
+          <section className={styles.container}>
+            <div>
+              <div className="justify-between">
+                <h3 className="heading-xs">How can I help?</h3>
+                <div>
+                  <Button
+                    classProp="mr-12"
+                    text="Clear chat"
+                    category="primary_outline"
+                    icon="refresh-cw"
+                    onClick={() => {
+                      clearChat()
+                    }}
+                  />
+                  <Dropdown
+                    alignment="right"
+                    width={210}
+                    ref={dropdownRef}
+                    cta={
                       <Button
-                        text="OpenAI"
-                        label="OpenAI"
-                        category="primary_clear"
-                        onClick={() => {
-                          handleModelSelection('openAi')
-                        }}
-                      />
-                      <Button
-                        text="llama"
-                        label="llama"
-                        category="primary_clear"
-                        onClick={() => {
-                          handleModelSelection('llama')
-                        }}
-                      />
-                    </div>
-                  }
-                />
-              </div>
-            </div>
-            <ChatContainer
-              messagesClassName={styles.chat_container}
-              ref={chatRef}
-              onMessageDispatch={onMessageDispatch}
-              llm={llm}
-              onInject={inject}
-              userChatMeta={{
-                avatar: 'https://api.dicebear.com/7.x/bottts/png?seed=fun',
-                name: 'User',
-                avatarAlt: 'U',
-              }}
-            />
-          </div>
-
-          <div className={styles.side_panel}>
-            <div className={styles.side_panel_header}>
-              <Button
-                category="primary_clear"
-                text="Saved Content"
-                onClick={() => setShowScratchPad(false)}
-                classProp={`mr-12 ${styles.tab_link} ${
-                  !showScratchPad ? styles.tab_link_active : ''
-                }`}
-              />
-              <Button
-                classProp={`${styles.tab_link} ${
-                  showScratchPad ? styles.tab_link_active : ''
-                }`}
-                text="Scratch Pad"
-                category="primary_clear"
-                onClick={() => setShowScratchPad(true)}
-              />
-            </div>
-            <div className={styles.side_panel_contents}>
-              {showScratchPad ? (
-                <div className={styles.scratch_pad_wrapper}>
-                  {editingArtifact !== undefined && (
-                    <>
-                      <h3 className="heading-xs">
-                        Editing ID: {editingArtifact}
-                      </h3>
-                      <hr />
-                    </>
-                  )}
-                  <form onSubmit={onSaveArtifact}>
-                    <Input
-                      onChange={(e: ChangeEvent<HTMLInputElement>) => {
-                        setArtifactTitle(e.target.value)
-                      }}
-                      value={artifactTitle}
-                      name="artifact title"
-                      placeholder="Artifact Title"
-                      label="Artifact Title"
-                      required={true}
-                    />
-                    <Input
-                      onChange={(e: ChangeEvent<HTMLInputElement>) => {
-                        setArtifactCat(e.target.value)
-                      }}
-                      value={artifactCat}
-                      name="artifact Category"
-                      placeholder="Artifact Category"
-                      label="Artifact Category"
-                      required={true}
-                    />
-
-                    <div key={markDownKey} className={styles.markdown_wrapper}>
-                      <MarkDownEditor
-                        markdown={markDownContent}
-                        onChange={(e) => {
-                          console.log(e)
-                          setMarkDownContent(e)
-                        }}
-                      />
-                    </div>
-
-                    <div className="justify-end gap-12">
-                      <Button
-                        type="submit"
-                        text="Save"
+                        classProp="mb-12"
+                        icon="chevron-down"
+                        text={`LLM: ${llm}`}
+                        label="toggle"
                         category="primary_outline"
                       />
-                      {editingArtifact !== undefined ? (
+                    }
+                    content={
+                      <div className="p-12 flex-column">
                         <Button
-                          type="button"
-                          text="Cancel"
-                          category="primary_outline"
-                          onClick={clearScratchPad}
+                          text="OpenAI"
+                          label="OpenAI"
+                          category="primary_clear"
+                          onClick={() => {
+                            handleModelSelection('openAi')
+                          }}
                         />
-                      ) : (
                         <Button
-                          type="button"
-                          text="Refresh"
-                          category="primary_outline"
-                          onClick={clearScratchPad}
+                          text="llama"
+                          label="llama"
+                          category="primary_clear"
+                          onClick={() => {
+                            handleModelSelection('llama')
+                          }}
                         />
-                      )}
-                    </div>
-                  </form>
+                      </div>
+                    }
+                  />
                 </div>
-              ) : (
-                <div>
-                  {!loadingArtifact && artifacts ? (
-                    <SavedContent
-                      apiKey={apiKey}
-                      artifacts={artifacts}
-                      onInject={chatRef.current?.setMessage}
-                      onDelete={handleDelete}
-                      onEdit={(artifact: ArtifactT) => {
-                        setEditingArtifact(artifact.id)
-                        setArtifactTitle(artifact.title)
-                        setArtifactCat(artifact.category)
-                        setMarkDownContent(artifact.content)
-                        setShowScratchPad(true)
-                      }}
-                    />
-                  ) : (
-                    <SkeletonCard category="row" qty={4} />
-                  )}
-                </div>
-              )}
+              </div>
+              <ChatContainer
+                messagesClassName={styles.chat_container}
+                ref={chatRef}
+                onMessageDispatch={onMessageDispatch}
+                llm={llm}
+                onInject={inject}
+                userChatMeta={{
+                  avatar: 'https://api.dicebear.com/7.x/bottts/png?seed=fun',
+                  name: 'User',
+                  avatarAlt: 'U',
+                }}
+              />
             </div>
-          </div>
+
+            <div className={styles.side_panel}>
+              <div className={styles.side_panel_header}>
+                <Button
+                  category="primary_clear"
+                  text="Saved Content"
+                  onClick={() => setShowScratchPad(false)}
+                  classProp={`mr-12 ${styles.tab_link} ${
+                    !showScratchPad ? styles.tab_link_active : ''
+                  }`}
+                />
+                <Button
+                  classProp={`${styles.tab_link} ${
+                    showScratchPad ? styles.tab_link_active : ''
+                  }`}
+                  text="Scratch Pad"
+                  category="primary_clear"
+                  onClick={() => setShowScratchPad(true)}
+                />
+              </div>
+              <div className={styles.side_panel_contents}>
+                {showScratchPad ? (
+                  <div className={styles.scratch_pad_wrapper}>
+                    {Boolean(apiKey) && (
+                      <div className="justify-end">
+                        <Button
+                          category="secondary_outline"
+                          text="Import from obsidian"
+                          onClick={() => {
+                            onOpenObsidian()
+                          }}
+                        />
+                      </div>
+                    )}
+
+                    {editingArtifact !== undefined && (
+                      <>
+                        <h3 className="heading-xs">
+                          Editing ID: {editingArtifact}
+                        </h3>
+                        <hr />
+                      </>
+                    )}
+                    <form onSubmit={onSaveArtifact}>
+                      <Input
+                        onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                          setArtifactTitle(e.target.value)
+                        }}
+                        value={artifactTitle}
+                        name="artifact title"
+                        placeholder="Artifact Title"
+                        label="Artifact Title"
+                        required={true}
+                      />
+                      <Input
+                        onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                          setArtifactCat(e.target.value)
+                        }}
+                        value={artifactCat}
+                        name="artifact Category"
+                        placeholder="Artifact Category"
+                        label="Artifact Category"
+                        required={true}
+                      />
+
+                      <div
+                        key={markDownKey}
+                        className={styles.markdown_wrapper}
+                      >
+                        <MarkDownEditor
+                          markdown={markDownContent}
+                          onChange={(e) => {
+                            console.log(e)
+                            setMarkDownContent(e)
+                          }}
+                        />
+                      </div>
+
+                      <div className="justify-end gap-12">
+                        <Button
+                          type="submit"
+                          text="Save"
+                          category="primary_outline"
+                        />
+                        {editingArtifact !== undefined ? (
+                          <Button
+                            type="button"
+                            text="Cancel"
+                            category="primary_outline"
+                            onClick={clearScratchPad}
+                          />
+                        ) : (
+                          <Button
+                            type="button"
+                            text="Refresh"
+                            category="primary_outline"
+                            onClick={clearScratchPad}
+                          />
+                        )}
+                      </div>
+                    </form>
+                  </div>
+                ) : (
+                  <div>
+                    {!loadingArtifact && artifacts ? (
+                      <SavedContent
+                        apiKey={apiKey}
+                        artifacts={artifacts}
+                        onInject={chatRef.current?.setMessage}
+                        onDelete={handleDelete}
+                        onEdit={(artifact: ArtifactT) => {
+                          setEditingArtifact(artifact.id)
+                          setArtifactTitle(artifact.title)
+                          setArtifactCat(artifact.category)
+                          setMarkDownContent(artifact.content)
+                          setShowScratchPad(true)
+                        }}
+                      />
+                    ) : (
+                      <SkeletonCard category="row" qty={4} />
+                    )}
+                  </div>
+                )}
+              </div>
+            </div>
+          </section>
         </section>
       </section>
-    </section>
+      <Modal isVisible={isModalVisible} onClose={onCloseModal}>
+        <div className="justify-between">
+          <div className="mb-24">
+            <h4 className="heading-md mb-12">Select File</h4>
+            <p className="paragraph">
+              Artifact category will be set to the file path of the markdown
+              file. When saving the artifact keep this defualt category name if
+              you want to save back to the current markdown file in Obsidian.
+            </p>
+          </div>
+
+          <div>
+            <Button
+              icon="x"
+              onClick={onCloseModal}
+              category="primary_outline"
+            />
+          </div>
+        </div>
+        {apiKey && (
+          <DirectoryExplorer apiKey={apiKey} onFileImport={onFileImport} />
+        )}
+      </Modal>
+    </>
   )
 }
 

@@ -145,3 +145,9 @@ export type UserT = {
   email: string
   obsidianKey: string
 }
+
+export type ObsidianT = {
+  id: string
+  userId: string
+  apiKey: string
+}

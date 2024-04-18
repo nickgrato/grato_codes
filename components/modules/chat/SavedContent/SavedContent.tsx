@@ -83,7 +83,6 @@ const SavedContent = ({
   onEdit,
   className = '',
 }: SavedContentPropsT) => {
-  console.log('here', artifacts)
   const CLEAR_FILTER = 'clear_filter'
   const [searchBy, setSearchBy] = useState(
     localStorage.getItem('searchBy') || '',
@@ -129,6 +128,7 @@ const SavedContent = ({
     try {
       const resp = obsidianApiService.addFileToFolder(currentArtifact)
       console.log('resp', resp)
+      onCloseModal()
     } catch (error) {
       console.log('error', error)
     }
@@ -222,13 +222,13 @@ const SavedContent = ({
         </div>
         <p className="body-sm">
           <Markdown>{currentArtifact?.content}</Markdown>
-          {/* <div className="justify-end mt-24">
+          <div className="justify-end mt-24">
             <Button
               text="Save to Obsidian"
               category="primary_outline"
               onClick={saveToObsidian}
             />
-          </div> */}
+          </div>
         </p>
       </Modal>
     </>
