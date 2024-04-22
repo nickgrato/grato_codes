@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "watch:workers": "tsc -p tsconfig.worker.json --watch",
+    "build:workers": "tsc -p tsconfig.worker.json",
     "dev": "next dev -H 127.0.0.1 -p 3111",
     "build": "next build",
     "start": "next start -H 127.0.0.1 -p 3111",
@@ -21,6 +23,7 @@
     "cookies-next": "^4.0.0",
     "eslint": "8.46.0",
     "eslint-config-next": "13.4.12",
+    "finnhub": "^1.2.18",
     "next": "13.4.12",
     "prettier": "^3.0.1",
     "react": "18.2.0",

@@ -215,6 +215,12 @@
   }
 }
 
+.opacity {
+  &-20 {
+    opacity: 0.2;
+  }
+}
+
 .overflow-x-hidden {
   overflow-x: hidden;
 }
