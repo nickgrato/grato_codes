@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from 'axios'
-const URL = `http://localhost:8080/v1/chat/completions`
+const URL = `https://e1f1-204-152-216-122.ngrok-free.app/v1/chat/completions`
 import { MessageT } from 'types'
 
 const PROTOCOLS = {
