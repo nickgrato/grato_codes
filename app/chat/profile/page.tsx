@@ -14,9 +14,16 @@ import { Button, Input } from '@mozilla/lilypad-ui'
 import SkeletonCard from '@Shared/SkeletonCard/SkeletonCard'
 import { ObsidianT } from 'types'
 
+const getUrl = () => {
+  return typeof window !== 'undefined'
+    ? localStorage.getItem('broadcastUrl') || ''
+    : ''
+}
+
 const Page = () => {
   const [profile, setProfile] = useState<UserT>()
   const [newObsidianKey, setNewObsidianKey] = useState<string>('')
+  const [newBroadcastUrl, setNewBroadcastUrl] = useState(getUrl())
   const [obsidianData, setObsidianData] = useState<ObsidianT>({
     id: '',
     userId: '',
@@ -48,6 +55,11 @@ const Page = () => {
     console.log('resp', resp)
   }
 
+  const saveBroadcastUrl = () => {
+    if (!newBroadcastUrl || typeof window !== 'undefined') return
+    localStorage.setItem('broadcastUrl', newBroadcastUrl)
+  }
+
   return (
     <section className={styles.page}>
       <Menu />
@@ -71,7 +83,7 @@ const Page = () => {
 
                 <hr />
 
-                <form className="mb-12" onSubmit={handleSubmit}>
+                <form className="mb-12 items-center" onSubmit={handleSubmit}>
                   <Input
                     classProp="mb-12"
                     onChange={(e: ChangeEvent<HTMLInputElement>) =>
@@ -80,12 +92,36 @@ const Page = () => {
                     value={newObsidianKey}
                     name="Obsidian_Key"
                     placeholder="Obsidian Key"
-                    label="Update / Add Obsidian Key"
+                    label="Obsidian Key"
                   />
-                  <div className="justify-end">
-                    <Button type="submit" text="Submit" />
-                  </div>
+                  <Button
+                    type="submit"
+                    text="Submit"
+                    classProp="ml-12"
+                    category="primary_clear"
+                  />
                 </form>
+                <section className="mb-12 items-center">
+                  <Input
+                    classProp="mb-12"
+                    onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                      setNewBroadcastUrl(e.target.value)
+                    }
+                    value={newBroadcastUrl}
+                    name="broadcast_url"
+                    placeholder="Broadcast URL"
+                    label="Broadcast URL"
+                  />
+                  <Button
+                    type="submit"
+                    text="Submit"
+                    classProp="ml-12"
+                    category="primary_clear"
+                    onClick={() => {
+                      saveBroadcastUrl()
+                    }}
+                  />
+                </section>
               </>
             )}
           </Card>

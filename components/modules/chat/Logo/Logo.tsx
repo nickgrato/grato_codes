@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import chatPNG from 'public/reptar.png'
+import chatPNG from 'public/hippo_logo.png'
 
 type LogoPropsT = {
   size?: 'small' | 'medium'
@@ -18,7 +18,18 @@ const Logo = ({ size = 'small', color = 'white' }: LogoPropsT) => {
 
   const { height, width } = size === 'medium' ? mediumDem : smallDem
 
-  return <Image src={chatPNG} alt="logo" height={height} width={width} />
+  return (
+    <div className="items-center">
+      <Image
+        src={chatPNG}
+        alt="logo"
+        height={height}
+        width={width}
+        className="mr-12"
+      />
+      <span className="heading-xl color color-logo">HIPPO CHAT</span>
+    </div>
+  )
 }
 
 export default Logo

@@ -8,13 +8,15 @@ import {
   Input,
   Modal,
   Badge,
-  BadgeCategoriesE,
   Select,
   OptionT,
+  CopyButton,
 } from '@mozilla/lilypad-ui'
 import Markdown from 'react-markdown'
 import { MessageT } from 'types'
 import ObsidianApiService from 'services/obsidian.service'
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
+import { darcula } from 'react-syntax-highlighter/dist/esm/styles/prism'
 
 type ArtifactPropsT = {
   artifact: ArtifactT
@@ -37,7 +39,7 @@ const Artifact = ({
     <div className={styles.artifact}>
       <div className="justify-between">
         <h4 className={styles.label}>{title}</h4>
-        <Badge name={category} category={BadgeCategoriesE.PRIMARY} />
+        <Badge name={category} category="primary" />
       </div>
       <div className={styles.preview}>{truncateString(content, 200)}</div>
       <div className="justify-end gap-12">
@@ -221,7 +223,31 @@ const SavedContent = ({
           </div>
         </div>
         <p className="body-sm">
-          <Markdown>{currentArtifact?.content}</Markdown>
+          <Markdown
+            children={currentArtifact?.content}
+            components={{
+              code({ node, inline, className, children, ...props }) {
+                const match = /language-(\w+)/.exec(className || '')
+                return !inline && match ? (
+                  <>
+                    <SyntaxHighlighter
+                      children={String(children).replace(/\n$/, '')}
+                      language={match[1]}
+                      PreTag="div"
+                      style={darcula}
+                    />
+                    <div className="justify-end">
+                      <CopyButton value={children as string} />
+                    </div>
+                  </>
+                ) : (
+                  <code className={className} {...props}>
+                    {children}
+                  </code>
+                )
+              },
+            }}
+          />
           <div className="justify-end mt-24">
             <Button
               text="Save to Obsidian"
