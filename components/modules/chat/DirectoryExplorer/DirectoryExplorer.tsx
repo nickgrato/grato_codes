@@ -60,7 +60,7 @@ const DirectoryExplorer = ({
       }
     }
     getData()
-  }, [])
+  }, [obsidianApiService])
 
   const FileTreeNode = ({ node }: FileTreeNodePropsT) => {
     const [children, setChildren] = useState<TreeNodeT[] | null>(
@@ -128,7 +128,7 @@ const DirectoryExplorer = ({
 
         {children &&
           children.map((childNode, i) => (
-            <div className={`ml-12 mb-12`}>
+            <div className={`ml-12 mb-12`} key={i}>
               <FileTreeNode node={childNode} key={i} />
             </div>
           ))}

@@ -1,10 +1,10 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
-import { Button } from '@mozilla/lilypad-ui'
+// import { useEffect, useRef, useState } from 'react'
+// import { Button } from '@mozilla/lilypad-ui'
 import styles from './page.module.scss'
-import { CryptoWorkConfigT, WorkerMessageT } from 'workers/types'
-import Card from '@Shared/Card/Card'
+// import { CryptoWorkConfigT, WorkerMessageT } from 'workers/types'
+// import Card from '@Shared/Card/Card'
 
 type CryptoDataT = {
   bitcoin: string
@@ -14,76 +14,76 @@ type CryptoDataT = {
 }
 
 const page = () => {
-  const workerRef = useRef<Worker>()
-  const initPrice = 'waiting for data...'
-  const [status, setStatus] = useState<string>('Stopped')
-  const [prices, setPrices] = useState<CryptoDataT>({
-    bitcoin: '',
-    ethereum: '',
-    monero: '',
-    litecoin: '',
-  })
+  // const workerRef = useRef<Worker>()
+  // const initPrice = 'waiting for data...'
+  // const [status, setStatus] = useState<string>('Stopped')
+  // const [prices, setPrices] = useState<CryptoDataT>({
+  //   bitcoin: '',
+  //   ethereum: '',
+  //   monero: '',
+  //   litecoin: '',
+  // })
 
-  useEffect(() => {
-    workerRef.current = new Worker('/workers/crypto/crypto.js', {
-      type: 'module',
-    })
-    workerRef.current.onmessage = (event) => {
-      setPrices((prev) => {
-        const newState = { ...prev, ...event.data }
-        return newState
-      })
-    }
-    workerRef.current.onerror = (error) => {
-      console.error('Worker error:', error)
-    }
-    return () => {
-      if (workerRef.current) {
-        workerRef.current.terminate()
-      }
-    }
-  }, [])
+  // useEffect(() => {
+  //   workerRef.current = new Worker('/workers/crypto/crypto.js', {
+  //     type: 'module',
+  //   })
+  //   workerRef.current.onmessage = (event) => {
+  //     setPrices((prev) => {
+  //       const newState = { ...prev, ...event.data }
+  //       return newState
+  //     })
+  //   }
+  //   workerRef.current.onerror = (error) => {
+  //     console.error('Worker error:', error)
+  //   }
+  //   return () => {
+  //     if (workerRef.current) {
+  //       workerRef.current.terminate()
+  //     }
+  //   }
+  // }, [])
 
-  const startWorker = () => {
-    setStatus('Running')
+  // const startWorker = () => {
+  //   setStatus('Running')
 
-    const workerMessage: WorkerMessageT<CryptoWorkConfigT> = {
-      type: 'init',
-      payload: {
-        data: {
-          assets: 'bitcoin,ethereum,monero,litecoin',
-        },
-      },
-    }
-    if (workerRef.current) {
-      workerRef.current.postMessage(workerMessage)
-    }
-  }
+  //   const workerMessage: WorkerMessageT<CryptoWorkConfigT> = {
+  //     type: 'init',
+  //     payload: {
+  //       data: {
+  //         assets: 'bitcoin,ethereum,monero,litecoin',
+  //       },
+  //     },
+  //   }
+  //   if (workerRef.current) {
+  //     workerRef.current.postMessage(workerMessage)
+  //   }
+  // }
 
-  const stopWorker = () => {
-    setStatus('Stopped')
-    const workerMessage: WorkerMessageT<CryptoWorkConfigT> = {
-      type: 'stop',
-    }
-    if (workerRef.current) {
-      workerRef.current.postMessage(workerMessage)
-    }
-  }
+  // const stopWorker = () => {
+  //   setStatus('Stopped')
+  //   const workerMessage: WorkerMessageT<CryptoWorkConfigT> = {
+  //     type: 'stop',
+  //   }
+  //   if (workerRef.current) {
+  //     workerRef.current.postMessage(workerMessage)
+  //   }
+  // }
 
-  const terminateWorker = () => {
-    setStatus('Terminated')
-    const workerMessage: WorkerMessageT<CryptoWorkConfigT> = {
-      type: 'stop',
-    }
-    if (workerRef.current) {
-      workerRef.current.postMessage(workerMessage)
-      workerRef.current.terminate()
-    }
-  }
+  // const terminateWorker = () => {
+  //   setStatus('Terminated')
+  //   const workerMessage: WorkerMessageT<CryptoWorkConfigT> = {
+  //     type: 'stop',
+  //   }
+  //   if (workerRef.current) {
+  //     workerRef.current.postMessage(workerMessage)
+  //     workerRef.current.terminate()
+  //   }
+  // }
 
   return (
     <section className={styles.page}>
-      <Card size="large" classProp={styles.card}>
+      {/* <Card size="large" classProp={styles.card}>
         <div className="mb-40 gap-12">
           <Button onClick={startWorker} text="Start stream" />
           <Button
@@ -119,7 +119,7 @@ const page = () => {
             })}
           </div>
         </div>
-      </Card>
+      </Card> */}
     </section>
   )
 }

@@ -110,17 +110,20 @@ const ChatContainer = forwardRef(
       dropdownRef.current?.closeDropdown()
     }
 
-    const handleSubmit = (message: string) => {
-      const messageObj: MessageT = {
-        role: 'user',
-        content: message,
-      }
-      // This seem to be a better way to get the current state
-      const prox = [...messages, messageObj]
-      setMessages((state) => [...state, messageObj])
-      onMessageDispatch(prox, llm)
-      setCurrentMessage('')
-    }
+    const handleSubmit = useCallback(
+      (message: string) => {
+        const messageObj: MessageT = {
+          role: 'user',
+          content: message,
+        }
+        // This seem to be a better way to get the current state
+        const prox = [...messages, messageObj]
+        setMessages((state) => [...state, messageObj])
+        onMessageDispatch(prox, llm)
+        setCurrentMessage('')
+      },
+      [llm],
+    )
 
     const clearChat = () => {
       localStorage.setItem('chatHistory', JSON.stringify([]))

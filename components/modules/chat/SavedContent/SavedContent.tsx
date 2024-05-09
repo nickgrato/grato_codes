@@ -226,9 +226,9 @@ const SavedContent = ({
           <Markdown
             children={currentArtifact?.content}
             components={{
-              code({ node, inline, className, children, ...props }) {
+              code({ node, className, children, ...props }) {
                 const match = /language-(\w+)/.exec(className || '')
-                return !inline && match ? (
+                return match ? (
                   <>
                     <SyntaxHighlighter
                       children={String(children).replace(/\n$/, '')}
@@ -248,13 +248,13 @@ const SavedContent = ({
               },
             }}
           />
-          <div className="justify-end mt-24">
+          {/* <div className="justify-end mt-24">
             <Button
               text="Save to Obsidian"
               category="primary_outline"
               onClick={saveToObsidian}
             />
-          </div>
+          </div> */}
         </p>
       </Modal>
     </>

@@ -74,9 +74,16 @@ export async function generateMetadata({
     console.error(e.code),
   )
 
+  if (blog) {
+    return {
+      title: `Grato Codes - ${blog.title}`,
+      description: blog.preview,
+    }
+  }
+
   return {
-    title: `Grato Codes - ${blog?.title}`,
-    description: blog?.preview,
+    title: `Grato Codes `,
+    description: 'blog preview',
   }
 }
 
