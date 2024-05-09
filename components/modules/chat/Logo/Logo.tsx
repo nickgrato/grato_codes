@@ -27,7 +27,7 @@ const Logo = ({ size = 'small', color = 'white' }: LogoPropsT) => {
         width={width}
         className="mr-12"
       />
-      <span className="heading-xl color color-logo">HIPPO CHAT</span>
+      {/* <span className="heading-xl color color-logo">HIPPO CHAT</span> */}
     </div>
   )
 }

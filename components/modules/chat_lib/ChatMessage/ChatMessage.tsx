@@ -30,7 +30,7 @@ const MessageBubble = ({
             classProp={styles.avatar}
             src={userChatMeta.avatar}
             alt={userChatMeta.avatarAlt}
-            size={40}
+            size={38}
           />
 
           <span>{userChatMeta.name}</span>

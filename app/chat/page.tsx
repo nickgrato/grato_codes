@@ -24,7 +24,7 @@ import MDEditor, { selectWord } from '@uiw/react-md-editor'
 import '@uiw/react-md-editor/markdown-editor.css'
 // No import is required in the WebPack.
 import '@uiw/react-markdown-preview/markdown.css'
-import logoWhite from 'public/g-logo-white.png'
+import userImage from 'public/user.png'
 
 const Page = () => {
   const chatRef = useRef<ChatContainerT>(null)
@@ -158,7 +158,7 @@ const Page = () => {
                 ref={chatRef}
                 onInject={inject}
                 userChatMeta={{
-                  avatar: logoWhite.src as string,
+                  avatar: userImage.src as string,
                   name: 'You',
                   avatarAlt: 'U',
                 }}
@@ -189,13 +189,13 @@ const Page = () => {
                   <div className={styles.scratch_pad_wrapper}>
                     {Boolean(apiKey) && (
                       <div className="justify-end">
-                        <Button
+                        {/* <Button
                           category="secondary_outline"
                           text="Import from obsidian"
                           onClick={() => {
                             onOpenObsidian()
                           }}
-                        />
+                        /> */}
                       </div>
                     )}
 
