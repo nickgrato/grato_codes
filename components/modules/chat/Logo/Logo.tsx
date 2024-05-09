@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import chatPNG from 'public/hippo_logo.png'
+import chatPNG from 'public/logo.png'
 
 type LogoPropsT = {
   size?: 'small' | 'medium'
@@ -12,8 +12,8 @@ const Logo = ({ size = 'small', color = 'white' }: LogoPropsT) => {
     width: 200,
   }
   const smallDem = {
-    height: 50,
-    width: 50,
+    height: 60,
+    width: 60,
   }
 
   const { height, width } = size === 'medium' ? mediumDem : smallDem

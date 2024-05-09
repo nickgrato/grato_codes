@@ -6,7 +6,7 @@ import { MessageT, UserChatMetaT } from 'types'
 import Markdown from 'react-markdown'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { darcula } from 'react-syntax-highlighter/dist/esm/styles/prism'
-import chatPNG from 'public/hippo_logo.png'
+import chatPNG from 'public/assistan.png'
 
 type MessageBubblePropsT = {
   userChatMeta: UserChatMetaT
@@ -30,7 +30,7 @@ const MessageBubble = ({
             classProp={styles.avatar}
             src={userChatMeta.avatar}
             alt={userChatMeta.avatarAlt}
-            size={38}
+            size={44}
           />
 
           <span>{userChatMeta.name}</span>
