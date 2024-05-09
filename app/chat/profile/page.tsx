@@ -4,27 +4,61 @@ import { useEffect, useState, ChangeEvent } from 'react'
 import Menu from '@Modules/chat/Menu/Menu'
 import styles from './page.module.scss'
 import Card from '@Shared/Card/Card'
-import { getUser } from 'services/users.service'
+import {
+  getUser,
+  getObsidianData,
+  updateObsidianData,
+} from 'services/users.service'
 import { UserT } from 'types'
 import { Button, Input } from '@mozilla/lilypad-ui'
+import SkeletonCard from '@Shared/SkeletonCard/SkeletonCard'
+import { ObsidianT } from 'types'
+
+const getUrl = () => {
+  return typeof window !== 'undefined'
+    ? localStorage.getItem('broadcastUrl') || ''
+    : ''
+}
 
 const Page = () => {
   const [profile, setProfile] = useState<UserT>()
   const [newObsidianKey, setNewObsidianKey] = useState<string>('')
-
+  const [newBroadcastUrl, setNewBroadcastUrl] = useState(getUrl())
+  const [obsidianData, setObsidianData] = useState<ObsidianT>({
+    id: '',
+    userId: '',
+    apiKey: '',
+  })
+  const [isLoading, setIsLoading] = useState<boolean>(true)
   useEffect(() => {
-    const getData = async () => {
+    const getUserData = async () => {
       const data = await getUser()
-      console.log('data', data)
-      if (!data) return
-
       setProfile(data)
-      data.obsidianKey && setNewObsidianKey(data.obsidianKey)
+      setIsLoading(false)
     }
-    getData()
+
+    const getObsidianApiKey = async () => {
+      const data = await getObsidianData()
+      setObsidianData(data)
+      setNewObsidianKey(data.apiKey)
+    }
+    getUserData()
+    getObsidianApiKey()
   }, [])
 
-  const onKeyChange = () => {}
+  const handleSubmit = async (e: ChangeEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    const resp = await updateObsidianData({
+      ...obsidianData,
+      apiKey: newObsidianKey,
+    })
+    console.log('resp', resp)
+  }
+
+  const saveBroadcastUrl = () => {
+    if (!newBroadcastUrl || typeof window !== 'undefined') return
+    localStorage.setItem('broadcastUrl', newBroadcastUrl)
+  }
 
   return (
     <section className={styles.page}>
@@ -33,31 +67,63 @@ const Page = () => {
       <section className={styles.wrapper}>
         <section className={styles.container}>
           <Card classProp={styles.card}>
-            <h2 className="heading-md mb-24">Profile</h2>
-            <div className="mb-12">
-              <span className="body-md-bold mr-12">Username:</span>
-              <span className="body-md ">{profile?.username}</span>
-            </div>
-            <div className="mb-12">
-              <span className="body-md-bold mr-12">Email:</span>
-              <span className="body-md ">{profile?.email}</span>
-            </div>
+            {isLoading ? (
+              <SkeletonCard qty={3} category="row" />
+            ) : (
+              <>
+                <h2 className="heading-md mb-24">Profile</h2>
+                <div className="mb-12">
+                  <span className="body-md-bold mr-12">Username:</span>
+                  <span className="body-md ">{profile?.username}</span>
+                </div>
+                <div className="mb-12">
+                  <span className="body-md-bold mr-12">Email:</span>
+                  <span className="body-md ">{profile?.email}</span>
+                </div>
 
-            <hr />
+                <hr />
 
-            <form className="mb-12">
-              <Input
-                classProp="mb-12"
-                onChange={setNewObsidianKey}
-                value={newObsidianKey}
-                name="Obsidian_Key"
-                placeholder="Obsidian Key"
-                label="Update / Add Obsidian Key"
-              />
-              <div className="justify-end">
-                <Button type="submit" text="Submit" />
-              </div>
-            </form>
+                <form className="mb-12 items-center" onSubmit={handleSubmit}>
+                  <Input
+                    classProp="mb-12"
+                    onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                      setNewObsidianKey(e.target.value)
+                    }
+                    value={newObsidianKey}
+                    name="Obsidian_Key"
+                    placeholder="Obsidian Key"
+                    label="Obsidian Key"
+                  />
+                  <Button
+                    type="submit"
+                    text="Submit"
+                    classProp="ml-12"
+                    category="primary_clear"
+                  />
+                </form>
+                <section className="mb-12 items-center">
+                  <Input
+                    classProp="mb-12"
+                    onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                      setNewBroadcastUrl(e.target.value)
+                    }
+                    value={newBroadcastUrl}
+                    name="broadcast_url"
+                    placeholder="Broadcast URL"
+                    label="Broadcast URL"
+                  />
+                  <Button
+                    type="submit"
+                    text="Submit"
+                    classProp="ml-12"
+                    category="primary_clear"
+                    onClick={() => {
+                      saveBroadcastUrl()
+                    }}
+                  />
+                </section>
+              </>
+            )}
           </Card>
         </section>
       </section>

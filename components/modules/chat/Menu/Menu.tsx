@@ -48,9 +48,9 @@ const Menu = ({ mobileMenuClick, classProp = '' }: MenuPropsT) => {
                     Chat
                   </Link>
 
-                  {/* <Link href="/chat/profile" className={styles.main_nav_link}>
+                  <Link href="/chat/profile" className={styles.main_nav_link}>
                     Profile
-                  </Link> */}
+                  </Link>
                 </div>
               )}
             </div>

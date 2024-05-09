@@ -14,6 +14,10 @@ interface NoteJson {
   content: string
 }
 
+export type VaultT = {
+  files: string[]
+}
+
 // c785fb8f197aa489c49ec11286dc375946df77126ba4c36fe23b76127f197653
 
 export default class ObsidianApiService {
@@ -33,16 +37,15 @@ export default class ObsidianApiService {
     return response.data
   }
 
-  public async getActiveFile(): Promise<NoteJson> {
-    return this.httpClient.get<NoteJson>('/active/').then(this.handleResponse)
+  public async getVault(): Promise<VaultT> {
+    return this.httpClient.get('/vault/').then(this.handleResponse)
   }
 
-  public async updateActiveFile(content: string): Promise<void> {
-    return this.httpClient
-      .put('/active/', content, {
-        headers: { 'Content-Type': 'text/markdown' },
-      })
-      .then(this.handleResponse)
+  /**
+   *  <T> can eaither be VaultT or string;
+   */
+  public async getFolderData<T>(path: string): Promise<T> {
+    return this.httpClient.get(`/vault/${path}`).then(this.handleResponse)
   }
 
   public async addFileToFolder(artifact: ArtifactT): Promise<void> {
@@ -54,6 +57,18 @@ export default class ObsidianApiService {
           headers: { 'Content-Type': 'text/markdown' },
         },
       )
+      .then(this.handleResponse)
+  }
+
+  public async getActiveFile(): Promise<NoteJson> {
+    return this.httpClient.get<NoteJson>('/active/').then(this.handleResponse)
+  }
+
+  public async updateActiveFile(content: string): Promise<void> {
+    return this.httpClient
+      .put('/active/', content, {
+        headers: { 'Content-Type': 'text/markdown' },
+      })
       .then(this.handleResponse)
   }
 

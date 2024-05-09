@@ -96,6 +96,10 @@
   color: $color-text-main;
 }
 
+.color-logo {
+  color: $color-logo;
+}
+
 .color-interaction-primary {
   color: $color-interaction-primary;
 }
@@ -215,6 +219,12 @@
   }
 }
 
+.opacity {
+  &-20 {
+    opacity: 0.2;
+  }
+}
+
 .overflow-x-hidden {
   overflow-x: hidden;
 }
@@ -291,6 +301,17 @@
     display: flex;
     justify-content: space-between;
   }
+}
+
+.items {
+  &-center {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.z-1 {
+  z-index: 1;
 }
 
 // Create Size Value Array
