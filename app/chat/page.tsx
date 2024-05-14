@@ -273,7 +273,9 @@ const Page = () => {
                       <SavedContent
                         apiKey={apiKey}
                         artifacts={artifacts}
-                        onInject={chatRef.current?.setMessage}
+                        onInject={(message) => {
+                          chatRef.current?.handleSubmit(message.content)
+                        }}
                         onDelete={handleDelete}
                         onEdit={(artifact: ArtifactT) => {
                           setEditingArtifact(artifact.id)

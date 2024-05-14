@@ -248,13 +248,13 @@ const SavedContent = ({
               },
             }}
           />
-          {/* <div className="justify-end mt-24">
+          <div className="justify-end mt-24">
             <Button
               text="Save to Obsidian"
               category="primary_outline"
               onClick={saveToObsidian}
             />
-          </div> */}
+          </div>
         </p>
       </Modal>
     </>

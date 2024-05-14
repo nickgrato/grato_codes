@@ -34,7 +34,7 @@ type ChatContainerPropsT = {
 }
 
 export type ChatContainerT = {
-  setMessage: (message: MessageT) => void
+  handleSubmit: (message: string) => void
   setDefaultConversation: (message: MessageT[]) => void
 }
 
@@ -81,6 +81,7 @@ const ChatContainer = forwardRef(
      */
     useImperativeHandle(ref, () => {
       return {
+        handleSubmit,
         setDefaultConversation,
       }
     })
@@ -122,7 +123,7 @@ const ChatContainer = forwardRef(
         onMessageDispatch(prox, llm)
         setCurrentMessage('')
       },
-      [llm],
+      [llm, messages],
     )
 
     const clearChat = () => {
