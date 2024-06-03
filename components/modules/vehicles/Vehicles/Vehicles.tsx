@@ -65,7 +65,7 @@ const Vehicles = ({ vehicles }: VehiclesPropsT) => {
                 onChange={handleChange}
                 value={selectedVehicle.id}
                 label="Select Vehicle"
-                classProp={`mb-16 ${styles.select}`}
+                className={`mb-16 ${styles.select}`}
                 options={vehicleOptions(vehicles)}
               />
             ) : (

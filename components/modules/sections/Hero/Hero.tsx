@@ -3,7 +3,7 @@ import { Button } from '@mozilla/lilypad-ui'
 import { HeroT } from 'types'
 
 interface HeroPropsI extends HeroT {
-  classProp?: string
+  className?: string
 }
 
 const Hero = ({
@@ -11,10 +11,10 @@ const Hero = ({
   body,
   ctaTitle,
   ctaHref,
-  classProp = '',
+  className = '',
 }: HeroPropsI) => {
   return (
-    <section className={`${classProp} ${styles.wrapper}`}>
+    <section className={`${className} ${styles.wrapper}`}>
       <div className={styles.container}>
         <div className={styles.contents_wrapper}>
           <div className={styles.contents}>

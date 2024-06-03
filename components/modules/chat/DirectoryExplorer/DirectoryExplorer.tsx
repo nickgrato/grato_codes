@@ -111,7 +111,7 @@ const DirectoryExplorer = ({
             }}
             className="mb-12 items-center body-md"
           >
-            <Icon name="chevron-down" classProp="mr-12" />
+            <Icon name="chevron-down" className="mr-12" />
 
             {node.name.replace('/', '')}
           </button>

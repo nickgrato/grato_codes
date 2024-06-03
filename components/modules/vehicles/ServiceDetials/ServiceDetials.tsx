@@ -30,7 +30,7 @@ const ServiceDetails = ({ service, onEdit }: ServiceDetailsPropsT) => {
         {vehicle_mileage}
       </p>
       <div className={styles.actions}>
-        <Button classProp="mr-12" text="Delete" category="primary_clear" />
+        <Button className="mr-12" text="Delete" category="primary_clear" />
         <Button text="Edit" onClick={() => onEdit(id)} />
       </div>
     </section>

@@ -1,18 +1,18 @@
-'use client';
+'use client'
 
-import Logo from '@Shared/Logo/Logo';
-import styles from './Footer.module.scss';
-import { useDesktopDown } from 'hooks/useMediaQuery';
+import Logo from '@Shared/Logo/Logo'
+import styles from './Footer.module.scss'
+import { useDesktopDown } from 'hooks/useMediaQuery'
 type FooterPropsT = {
-  classProp?: string;
-};
-import Link from 'next/link';
+  className?: string
+}
+import Link from 'next/link'
 
-const Footer = ({ classProp = '' }: FooterPropsT) => {
-  const isDesktopDown = useDesktopDown();
+const Footer = ({ className = '' }: FooterPropsT) => {
+  const isDesktopDown = useDesktopDown()
 
   return (
-    <section className={`${classProp} ${styles.wrapper}`}>
+    <section className={`${className} ${styles.wrapper}`}>
       <div className={styles.container}>
         {/* LINKS  */}
         <div className={styles.link_blocks}>
@@ -134,7 +134,7 @@ const Footer = ({ classProp = '' }: FooterPropsT) => {
         </div>
       </div>
     </section>
-  );
-};
+  )
+}
 
-export default Footer;
+export default Footer

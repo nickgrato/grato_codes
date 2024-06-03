@@ -6,7 +6,7 @@ type NotificationPropsT = {
   title: string
   message: string
   type?: 'critical' | 'warning' | 'info'
-  classProp?: string
+  className?: string
 }
 
 const Notification = ({
@@ -14,13 +14,13 @@ const Notification = ({
   title,
   message,
   type = 'info',
-  classProp = '',
+  className = '',
 }: NotificationPropsT) => (
-  <div className={`${styles.wrapper} ${styles[type]} ${classProp}`}>
+  <div className={`${styles.wrapper} ${styles[type]} ${className}`}>
     <div className="flex-align-center mb-12">
       <Icon
         name="alert-triangle"
-        classProp="flex-shrink-0 mr-12"
+        className="flex-shrink-0 mr-12"
         color="currentColor"
       />
       <h3>{title}</h3>

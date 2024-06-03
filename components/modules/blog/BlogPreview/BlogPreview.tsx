@@ -1,22 +1,22 @@
-import { BlogPostPreviewT } from 'types';
-import styles from './BlogPreview.module.scss';
-import Image from 'next/image';
-import { Routes } from 'const/Routes';
-import { Button } from '@mozilla/lilypad-ui';
-import Link from 'next/link';
+import { BlogPostPreviewT } from 'types'
+import styles from './BlogPreview.module.scss'
+import Image from 'next/image'
+import { Routes } from 'const/Routes'
+import { Button } from '@mozilla/lilypad-ui'
+import Link from 'next/link'
 
 type BlogPreviewPropsT = {
-  classProp?: string;
-  blogPostPreview: BlogPostPreviewT;
-};
+  className?: string
+  blogPostPreview: BlogPostPreviewT
+}
 
 const BlogPreview = ({
-  classProp = '',
+  className = '',
   blogPostPreview,
 }: BlogPreviewPropsT) => {
   return (
     <Link href={`${Routes.BLOG}/${blogPostPreview.slug}`}>
-      <section className={`${classProp} ${styles.wrapper}`}>
+      <section className={`${className} ${styles.wrapper}`}>
         <div className={styles.image_wrapper}>
           <Image
             src={blogPostPreview.image.url}
@@ -33,7 +33,7 @@ const BlogPreview = ({
         <span className="primary-link">Continue Reading</span>
       </section>
     </Link>
-  );
-};
+  )
+}
 
-export default BlogPreview;
+export default BlogPreview

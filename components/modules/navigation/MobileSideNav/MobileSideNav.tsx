@@ -53,7 +53,7 @@ const MobileSideNav = ({
               size="medium"
               icon="x"
               onClick={handleMobileMenuClick}
-              classProp={styles.menu_button}
+              className={styles.menu_button}
             />
           </div>
 

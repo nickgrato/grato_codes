@@ -1,10 +1,10 @@
-import styles from './SkeletonCard.module.scss';
+import styles from './SkeletonCard.module.scss'
 
 type SkeletonCardPropsT = {
-  category: 'square' | 'row';
-  qty: number;
-  classProp?: string;
-};
+  category: 'square' | 'row'
+  qty: number
+  className?: string
+}
 
 /**
  * Skeleton Card: This card is used to create faux loading ui of widgets and rows. Stack
@@ -14,11 +14,11 @@ type SkeletonCardPropsT = {
 const SkeletonCard = ({
   category,
   qty = 1,
-  classProp = '',
+  className = '',
 }: SkeletonCardPropsT) => {
   return (
     <div
-      className={`${classProp} ${styles.card_wrapper} ${
+      className={`${className} ${styles.card_wrapper} ${
         category === 'square' ? styles.square_wrapper : styles.row_wrapper
       }`}
     >
@@ -30,10 +30,10 @@ const SkeletonCard = ({
               category === 'square' ? styles.square : styles.row
             }`}
           ></div>
-        );
+        )
       })}
     </div>
-  );
-};
+  )
+}
 
-export default SkeletonCard;
+export default SkeletonCard

@@ -58,7 +58,7 @@ const ScrapeForm = () => {
               type="button"
               category="primary_clear"
               onClick={() => {}}
-              classProp={styles.cta}
+              className={styles.cta}
             />
           </div>
 
@@ -73,7 +73,7 @@ const ScrapeForm = () => {
             label="Wiki URL"
             required={true}
             showLabel={false}
-            classProp="mb-12"
+            className="mb-12"
           />
           <hr />
 
@@ -152,7 +152,7 @@ const ScrapeForm = () => {
             placeholder="Prompt"
             label="Prompt"
             required={true}
-            classProp="mb-12"
+            className="mb-12"
           />
 
           <div className="flex-justify-end">
@@ -160,7 +160,7 @@ const ScrapeForm = () => {
               text="submit"
               type="submit"
               onClick={() => {}}
-              classProp={styles.cta}
+              className={styles.cta}
             />
           </div>
         </form>
@@ -183,7 +183,7 @@ const ScrapeForm = () => {
             {Boolean(response.length) && (
               <div className="flex-justify-end">
                 <Button
-                  classProp="mr-12"
+                  className="mr-12"
                   icon="message-circle"
                   text="Continue the chat"
                   category="primary_clear"

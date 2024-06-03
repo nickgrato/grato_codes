@@ -13,11 +13,11 @@ import { UserT } from 'types'
 import { Button, Input } from '@mozilla/lilypad-ui'
 import SkeletonCard from '@Shared/SkeletonCard/SkeletonCard'
 import { ObsidianT } from 'types'
+import { LocalStorage } from 'const/LocalStorage'
+import { localStorageUtil } from 'utils/locaStorageUtil'
 
 const getUrl = () => {
-  return typeof window !== 'undefined'
-    ? localStorage.getItem('broadcastUrl') || ''
-    : ''
+  return localStorageUtil.getItem(LocalStorage.BROADCAST_URL)
 }
 
 const Page = () => {
@@ -56,8 +56,8 @@ const Page = () => {
   }
 
   const saveBroadcastUrl = () => {
-    if (!newBroadcastUrl || typeof window !== 'undefined') return
-    localStorage.setItem('broadcastUrl', newBroadcastUrl)
+    if (!newBroadcastUrl) return
+    localStorageUtil.setItem(LocalStorage.BROADCAST_URL, newBroadcastUrl)
   }
 
   return (
@@ -66,7 +66,7 @@ const Page = () => {
 
       <section className={styles.wrapper}>
         <section className={styles.container}>
-          <Card classProp={styles.card}>
+          <Card className={styles.card}>
             {isLoading ? (
               <SkeletonCard qty={3} category="row" />
             ) : (
@@ -85,7 +85,7 @@ const Page = () => {
 
                 <form className="mb-12 items-center" onSubmit={handleSubmit}>
                   <Input
-                    classProp="mb-12"
+                    className="mb-12"
                     onChange={(e: ChangeEvent<HTMLInputElement>) =>
                       setNewObsidianKey(e.target.value)
                     }
@@ -97,13 +97,13 @@ const Page = () => {
                   <Button
                     type="submit"
                     text="Submit"
-                    classProp="ml-12"
+                    className="ml-12"
                     category="primary_clear"
                   />
                 </form>
                 <section className="mb-12 items-center">
                   <Input
-                    classProp="mb-12"
+                    className="mb-12"
                     onChange={(e: ChangeEvent<HTMLInputElement>) =>
                       setNewBroadcastUrl(e.target.value)
                     }
@@ -115,7 +115,7 @@ const Page = () => {
                   <Button
                     type="submit"
                     text="Submit"
-                    classProp="ml-12"
+                    className="ml-12"
                     category="primary_clear"
                     onClick={() => {
                       saveBroadcastUrl()

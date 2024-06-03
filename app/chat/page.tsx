@@ -171,12 +171,12 @@ const Page = () => {
                   category="primary_clear"
                   text="Saved Content"
                   onClick={() => setShowScratchPad(false)}
-                  classProp={`mr-12 ${styles.tab_link} ${
+                  className={`mr-12 ${styles.tab_link} ${
                     !showScratchPad ? styles.tab_link_active : ''
                   }`}
                 />
                 <Button
-                  classProp={`${styles.tab_link} ${
+                  className={`${styles.tab_link} ${
                     showScratchPad ? styles.tab_link_active : ''
                   }`}
                   text="Scratch Pad"

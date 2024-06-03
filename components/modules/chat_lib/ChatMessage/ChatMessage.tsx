@@ -27,7 +27,7 @@ const MessageBubble = ({
       <div className={styles.container}>
         <div className={styles.name_tag}>
           <Avatar
-            classProp={styles.avatar}
+            className={styles.avatar}
             src={userChatMeta.avatar}
             alt={userChatMeta.avatarAlt}
             size={44}
@@ -66,7 +66,7 @@ const MessageBubble = ({
         </div>
         {hasActions && (
           <div className={styles.actions}>
-            <CopyButton value={message} classProp="mr-12" />
+            <CopyButton value={message} className="mr-12" />
             <Button
               icon="edit-3"
               onClick={() => {

@@ -1,4 +1,83 @@
+:root {
+  --font-primary: var(--inter-font);
+  --font-seondary: var(--space_grotesk-font);
+  --font-secondary: var(--space_grotesk-font);
+
+  /**
+  BUTTON
+  **/
+  --button-font-size: 0.875rem;
+  --button-font-weight: 500;
+  --button-border-radius: 20px;
+  --button-border-stroke: 2px;
+  --button-padding-large: 12px 18px;
+  --button-padding-large-round: 12px;
+  --button-padding-medium: 8px 16px;
+  --button-padding-medium-round: 8px;
+  --button-padding-small: 6px 12px;
+  --button-padding-small-round: 6px;
+
+  /**
+  COPY BUTTON
+  **/
+  --copy-button-font-size: 0.875rem;
+  --copy-button-font-weight: 500;
+
+  /**
+  CHECKBOX
+  **/
+  --checkbox-label-font-size: 0.875rem;
+  --checkbox-label-font-weight: 500;
+
+  /**
+  INPUTS
+  **/
+  --input-label-font-size: 0.875rem;
+  --input-label-font-weight: 600;
+  --input-font-size: 0.875rem;
+  --input-info-font-size: 0.875rem;
+  --input-border-radius: 12px;
+  --input-padding: 12px;
+
+  /**
+  DROPDOWN
+  **/
+  --dropdown-margin-top: 12px;
+  --dropdown-border-radius: 4px;
+
+  /**
+  BADGE
+  **/
+  --badge-font-size: 0.875rem;
+  --badge-font-weight: 500;
+  --badge-padding: 5px 12px;
+  --badge-border-radius: 56px;
+  --badge-line-height: 26px;
+  --badge-line-height: 26px;
+
+  /**
+  RADIO
+  **/
+  --radio-label-font-size: 0.875rem;
+  --radio-label-font-weight: 500;
+
+  /**
+  SWITCH
+  **/
+  --switch-font-weight: 500;
+
+  /**
+  TOOLTIP
+  **/
+  --tooltip-font-size: 0.875rem;
+  --tooltip-font-weight: 500;
+  --tooltip-width: 250px;
+}
+
 div[data-theme='buzz'] {
+  --font-primary: var(--inter-font);
+  --font-seondary: var(--space_grotesk-font);
+  --font-secondary: var(--space_grotesk-font);
   --color-interaction-primary: #e36d28;
   --color-interaction-primary-hover: #aa4810;
 
@@ -16,6 +95,10 @@ div[data-theme='buzz'] {
 }
 
 div[data-theme='chat'] {
+  --font-primary: var(--inter-font);
+  --font-seondary: var(--space_grotesk-font);
+  --font-secondary: var(--space_grotesk-font);
+
   --color-interaction-primary: #00de9b;
   --color-interaction-primary-active: #00de9b;
   --color-interaction-primary-hover: rgb(104, 199, 105);
@@ -35,10 +118,27 @@ div[data-theme='chat'] {
   --color-border-1: #878787;
 
   --button-border-radius: 10px;
+
+  /**
+  BUTTONS
+  **/
+  --button-font-size: 0.875rem;
+  --button-font-weight: 500;
+  --button-border-stroke: 2px;
+  --button-border-radius: 6px;
+  --button-padding-large: 12px 18px;
+  --button-padding-large-round: 12px;
+  --button-padding-medium: 4px 8px;
+  --button-padding-medium-round: 4px;
+  --button-padding-small: 6px 12px;
+  --button-padding-small-round: 6px;
 }
 
 main[data-theme='zebra'],
 :root {
+  --font-primary: var(--inter-font);
+  --font-seondary: var(--space_grotesk-font);
+  --font-secondary: var(--space_grotesk-font);
   /**
   BRAND COLORS
   **/
@@ -155,4 +255,9 @@ main[data-theme='zebra'],
   **/
 
   --max-container-width: 1800px;
+
+  /**
+  BADGE
+  **/
+  --badge-line-height: 26px;
 }

@@ -1,5 +1,7 @@
 import axios, { AxiosResponse } from 'axios'
 import { MessageT } from 'types'
+import { LocalStorage } from 'const/LocalStorage'
+import { localStorageUtil } from 'utils/locaStorageUtil'
 
 const PROTOCOLS = {
   headers: {
@@ -9,26 +11,21 @@ const PROTOCOLS = {
 }
 
 export const getUrl = () => {
-  const defaultUrl = 'http://localhost:8080/v1/chat/completions'
-  return typeof window !== 'undefined'
-    ? localStorage.getItem('broadcastUrl') || defaultUrl
-    : defaultUrl
+  const defaultUrl = 'https://brightly-intimate-cow.ngrok-free.app'
+  return localStorageUtil.getItem(LocalStorage.BROADCAST_URL) || defaultUrl
 }
 
-export const getLlamaResponse = async (
+export const getLocalLLMResponse = async (
   messages: MessageT[],
 ): Promise<MessageT> => {
   const URL = getUrl()
   const data = await axios
     .post(
       URL,
-      {
-        model: 'LLaMA_CPP',
-        messages: messages,
-      },
+      { model: 'llama3', messages: messages, stream: false },
       { ...PROTOCOLS },
     )
-    .then(({ data }: AxiosResponse) => data.choices[0])
+    .then(({ data }: AxiosResponse) => data)
 
   return data.message
 }

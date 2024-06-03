@@ -13,11 +13,13 @@ import styles from './ChatContainer.module.scss'
 import ChatMessage from '../ChatMessage/ChatMessage'
 import TypingIndicator from '../TypingIndicator/TypingIndicator'
 import { MessageT, UserChatMetaT } from 'types'
-import { Button, TextArea, Dropdown, dropdownT } from '@mozilla/lilypad-ui'
+import { Button, TextArea, Dropdown, DropdownT } from '@mozilla/lilypad-ui'
 import { getResponse } from 'services/openAi.service'
-import { getLlamaResponse } from 'services/llamaFile.service'
+import { getLocalLLMResponse } from 'services/localLLM.service'
+import { LocalStorage } from 'const/LocalStorage'
+import { localStorageUtil } from 'utils/locaStorageUtil'
 
-export type LlmT = 'openAi' | 'llamaFiles'
+export type LlmT = 'openAi' | 'local'
 
 const initConvo = {
   role: 'system',
@@ -57,7 +59,7 @@ const ChatContainer = forwardRef(
     const [currentMessage, setCurrentMessage] = useState('')
     const [loading, setLoading] = useState(false)
     const messagesEndRef = useRef<HTMLDivElement>(null)
-    const dropdownRef = useRef<dropdownT>(null)
+    const dropdownRef = useRef<DropdownT>(null)
     const [llm, setLlm] = useState<LlmT>('openAi')
 
     const scrollToBottom = () => {
@@ -67,13 +69,16 @@ const ChatContainer = forwardRef(
     useEffect(() => {
       scrollToBottom()
       if (messages.length > 1) {
-        localStorage.setItem('chatHistory', JSON.stringify(messages))
+        localStorageUtil.setItem(LocalStorage.CHAT_HISTORY, messages)
       }
     }, [messages])
 
     useEffect(() => {
-      const storedChatHistory = localStorage.getItem('chatHistory')
-      storedChatHistory && setMessages(JSON.parse(storedChatHistory))
+      const storedChatHistory = localStorageUtil.getItem(
+        LocalStorage.CHAT_HISTORY,
+      )
+      storedChatHistory && setMessages(storedChatHistory)
+      setLlm(localStorageUtil.getItem(LocalStorage.LLM) || 'openAi')
     }, [])
 
     /**
@@ -93,7 +98,7 @@ const ChatContainer = forwardRef(
         const resp =
           updateLlm === 'openAi'
             ? await getResponse(messages)
-            : await getLlamaResponse(messages)
+            : await getLocalLLMResponse(messages)
 
         setMessages((state) => [...state, resp])
         setLoading(false)
@@ -108,6 +113,7 @@ const ChatContainer = forwardRef(
 
     const handleModelSelection = (llm: LlmT) => {
       setLlm(llm)
+      localStorageUtil.setItem(LocalStorage.LLM, llm)
       dropdownRef.current?.closeDropdown()
     }
 
@@ -127,7 +133,7 @@ const ChatContainer = forwardRef(
     )
 
     const clearChat = () => {
-      localStorage.setItem('chatHistory', JSON.stringify([]))
+      localStorageUtil.setItem(LocalStorage.CHAT_HISTORY, [])
       setDefaultConversation([])
     }
 
@@ -172,7 +178,7 @@ const ChatContainer = forwardRef(
           <h3 className="heading-xs">How can I help?</h3>
           <div className="z-1">
             <Button
-              classProp="mr-12"
+              className="mr-12"
               text="Clear chat"
               category="primary_outline"
               icon="refresh-cw"
@@ -186,7 +192,7 @@ const ChatContainer = forwardRef(
               ref={dropdownRef}
               cta={
                 <Button
-                  classProp="mb-12"
+                  className="mb-12"
                   icon="chevron-down"
                   text={`LLM: ${llm}`}
                   label="toggle"
@@ -204,11 +210,11 @@ const ChatContainer = forwardRef(
                     }}
                   />
                   <Button
-                    text="llama Files"
-                    label="llama Files"
+                    text="Local LLM"
+                    label="Local LLM"
                     category="primary_clear"
                     onClick={() => {
-                      handleModelSelection('llamaFiles')
+                      handleModelSelection('local')
                     }}
                   />
                 </div>
@@ -253,7 +259,7 @@ const ChatContainer = forwardRef(
               name="Message"
               placeholder={placeHolderText}
               label="Message Assistant"
-              classProp="mb-12"
+              className="mb-12"
             />
             <div className={styles.button_wrapper}>
               <Button

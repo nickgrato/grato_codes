@@ -27,7 +27,7 @@ const ServiceUpsert = ({ action, serviceId, onClose }: ServiceUpsertPropsT) => {
         label="Title"
         placeholder="title"
         required={true}
-        classProp="mb-16"
+        className="mb-16"
       />
 
       <Input
@@ -38,7 +38,7 @@ const ServiceUpsert = ({ action, serviceId, onClose }: ServiceUpsertPropsT) => {
         label="Service"
         placeholder="service"
         required={true}
-        classProp="mb-16"
+        className="mb-16"
       />
 
       <Input
@@ -49,12 +49,12 @@ const ServiceUpsert = ({ action, serviceId, onClose }: ServiceUpsertPropsT) => {
         label="Vehicle Mileage"
         placeholder="Vehicle Mileage"
         required={true}
-        classProp="mb-16"
+        className="mb-16"
       />
 
       <div className={styles.actions}>
         <Button
-          classProp="mr-12"
+          className="mr-12"
           text="Cancel"
           category="primary_clear"
           onClick={() => onClose()}

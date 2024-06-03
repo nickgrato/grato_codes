@@ -47,7 +47,7 @@ const PromptInput = ({
         <Button
           icon="trash"
           category="primary_clear"
-          classProp="mb-12"
+          className="mb-12"
           onClick={onDelete}
         />
       </div>

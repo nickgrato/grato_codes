@@ -83,7 +83,7 @@ const page = () => {
 
   return (
     <section className={styles.page}>
-      {/* <Card size="large" classProp={styles.card}>
+      {/* <Card size="large" className={styles.card}>
         <div className="mb-40 gap-12">
           <Button onClick={startWorker} text="Start stream" />
           <Button

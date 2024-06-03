@@ -23,7 +23,7 @@ const LoginForm = () => {
   }
 
   return (
-    <Card size="large" classProp={styles.wrapper}>
+    <Card size="large" className={styles.wrapper}>
       <form className="flex-column gap-24" onSubmit={(e) => handleLogin(e)}>
         <h1>Login</h1>
 
@@ -61,7 +61,7 @@ const LoginForm = () => {
           text="submit"
           type="submit"
           onClick={() => {}}
-          classProp={styles.cta}
+          className={styles.cta}
         />
       </form>
     </Card>

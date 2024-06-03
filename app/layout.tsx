@@ -1,5 +1,5 @@
 import '../styles/globals.scss'
-import '@mozilla/lilypad-ui/dist/styles/theme.scss'
+// import '@mozilla/lilypad-ui/dist/styles/theme.scss'
 
 import type { Metadata } from 'next'
 import { Inter, Space_Grotesk } from 'next/font/google'
@@ -7,11 +7,15 @@ import { Inter, Space_Grotesk } from 'next/font/google'
 const inter = Inter({
   variable: '--inter-font',
   subsets: ['latin'],
+  display: 'swap',
+  preload: true,
 })
 
 const space_grotesk = Space_Grotesk({
   variable: '--space_grotesk-font',
   subsets: ['latin'],
+  display: 'swap',
+  preload: true,
 })
 
 export const metadata: Metadata = {

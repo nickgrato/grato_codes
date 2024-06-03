@@ -53,7 +53,7 @@ const VehicleUpsert = ({
         label="Make"
         placeholder="make"
         required={true}
-        classProp="mb-16"
+        className="mb-16"
       />
 
       <Input
@@ -66,12 +66,12 @@ const VehicleUpsert = ({
         label="Model"
         placeholder="model"
         required={true}
-        classProp="mb-16"
+        className="mb-16"
       />
 
       <div className={styles.actions}>
         <Button
-          classProp="mr-12"
+          className="mr-12"
           text="Cancel"
           category="primary_clear"
           onClick={() => onClose()}

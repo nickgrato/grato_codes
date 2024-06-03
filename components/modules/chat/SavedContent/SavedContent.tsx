@@ -17,6 +17,8 @@ import { MessageT } from 'types'
 import ObsidianApiService from 'services/obsidian.service'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { darcula } from 'react-syntax-highlighter/dist/esm/styles/prism'
+import { LocalStorage } from 'const/LocalStorage'
+import { localStorageUtil } from 'utils/locaStorageUtil'
 
 type ArtifactPropsT = {
   artifact: ArtifactT
@@ -87,12 +89,12 @@ const SavedContent = ({
 }: SavedContentPropsT) => {
   const CLEAR_FILTER = 'clear_filter'
   const [searchBy, setSearchBy] = useState(
-    localStorage.getItem('searchBy') || '',
+    localStorageUtil.getItem(LocalStorage.SEARCH_BY) || '',
   )
   const [currentArtifact, setCurrentArtifact] = useState<ArtifactT>()
   const [isModalVisible, setIsModalVisible] = useState(false)
   const [filterBy, setFilterBy] = useState(
-    localStorage.getItem('filterBy') || CLEAR_FILTER,
+    localStorageUtil.getItem('filterBy') || CLEAR_FILTER,
   )
   const obsidianApiService = useMemo(
     () => new ObsidianApiService(apiKey),
@@ -103,11 +105,11 @@ const SavedContent = ({
    * Maintain State in local storage
    */
   useEffect(() => {
-    localStorage.setItem('filterBy', filterBy)
+    localStorageUtil.setItem(LocalStorage.FILTER_BY, filterBy)
   }, [filterBy])
 
   useEffect(() => {
-    localStorage.setItem('searchBy', searchBy)
+    localStorageUtil.setItem(LocalStorage.SEARCH_BY, searchBy)
   }, [searchBy])
 
   const options: OptionT[] = artifacts.reduce(

@@ -11,10 +11,10 @@ import ContactModal from '@Modals/ContactModal/ContactModal'
 
 type MenuPropsT = {
   mobileMenuClick?: Function
-  classProp?: string
+  className?: string
 }
 
-const Menu = ({ mobileMenuClick, classProp = '' }: MenuPropsT) => {
+const Menu = ({ mobileMenuClick, className = '' }: MenuPropsT) => {
   const [isContactModalVisible, setIsContactModalVisible] = useState(false)
 
   /**
@@ -31,7 +31,7 @@ const Menu = ({ mobileMenuClick, classProp = '' }: MenuPropsT) => {
    */
   return (
     <>
-      <nav className={`${styles.main_nav} ${classProp}`}>
+      <nav className={`${styles.main_nav} ${className}`}>
         <div className={styles.main_nav_wrapper}>
           <div className={styles.main_nav_container}>
             {/* Main navigation links / logo */}
@@ -63,7 +63,7 @@ const Menu = ({ mobileMenuClick, classProp = '' }: MenuPropsT) => {
                 category="secondary_clear"
                 icon="menu"
                 onClick={handleMobileMenuClick}
-                classProp={styles.mobile_menu}
+                className={styles.mobile_menu}
               />
             )}
 
@@ -71,7 +71,7 @@ const Menu = ({ mobileMenuClick, classProp = '' }: MenuPropsT) => {
               <div className="flex-align-center">
                 <div className={styles.main_nav_actions}>
                   <Button
-                    classProp="mr-12"
+                    className="mr-12"
                     text="Contact"
                     onClick={() => setIsContactModalVisible(true)}
                   />
