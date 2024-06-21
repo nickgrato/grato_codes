@@ -1,0 +1,76 @@
+@use 'styles/core/boilerplate' as *;
+
+.nav {
+  &_container {
+    color: $color-text-main;
+  }
+  &_open {
+    right: 0;
+  }
+
+  &_closed {
+    right: -100vw;
+  }
+
+  &_wrapper {
+    background: $color-background-neutral-0;
+    height: 100%;
+    width: 100%;
+    max-width: 100vw;
+    box-shadow: $drop-shadow-right;
+    z-index: 2;
+    position: fixed;
+    top: 0;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding: 0px;
+  }
+
+  &_container {
+    ul {
+      list-style-type: none;
+    }
+
+    li {
+      padding: 20px 0;
+    }
+  }
+
+  &_link {
+    @include navigation-link;
+  }
+
+  &_links {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding: 24px;
+  }
+}
+
+.menu_button {
+  margin-left: 30px;
+}
+
+.banner_gradient {
+  padding: 2px;
+  background: $gradient-rainbow;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 1;
+  background: $color-background-modal-overlay;
+
+  &_open {
+    width: 100%;
+  }
+
+  &_closed {
+    width: 0;
+  }
+}

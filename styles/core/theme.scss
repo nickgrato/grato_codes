@@ -134,6 +134,45 @@ div[data-theme='chat'] {
   --button-padding-small-round: 6px;
 }
 
+div[data-theme='learn'] {
+  --font-primary: var(--inter-font);
+  --font-seondary: var(--space_grotesk-font);
+  --font-secondary: var(--space_grotesk-font);
+
+  --color-interaction-primary: #29c095;
+  --color-interaction-primary-active: #29c095;
+  --color-interaction-primary-hover: #37e2b2;
+  --color-interaction-primary-alt: #1d2941;
+  --color-logo: rgb(93, 135, 89);
+
+  --color-background-neutral-0: #1d2941;
+
+  --color-background-overlay: #ffffff;
+
+  --color-neutral-0: #101010;
+
+  --color-text-main: #ffffff;
+  --color-text-reverse: #000000;
+
+  --color-background-subtle-callout: #162129;
+
+  --color-border-1: #878787;
+
+  /**
+  BUTTONS
+  **/
+  --button-font-size: 0.875rem;
+  --button-font-weight: 500;
+  --button-border-stroke: 2px;
+  --button-border-radius: 20px;
+  --button-padding-large: 12px 18px;
+  --button-padding-large-round: 12px;
+  --button-padding-medium: 8px 16px;
+  --button-padding-medium-round: 4px;
+  --button-padding-small: 6px 12px;
+  --button-padding-small-round: 6px;
+}
+
 main[data-theme='zebra'],
 :root {
   --font-primary: var(--inter-font);

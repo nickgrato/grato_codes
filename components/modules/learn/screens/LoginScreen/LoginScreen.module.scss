@@ -1,0 +1,35 @@
+@use 'styles/core/boilerplate' as *;
+
+.page {
+  background: #fff;
+  color: $color-text-main;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  padding: 16px;
+  box-sizing: border-box;
+  justify-content: center;
+}
+
+.hr {
+  width: 100%;
+  height: 1px;
+  background-color: $color-background-neutral-0;
+  margin: 16px 0;
+}
+
+.signup {
+  &_wrapper {
+    height: 100vh;
+    width: 100%;
+
+    background: #453081;
+    color: $color-text-main;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    padding: 16px;
+    box-sizing: border-box;
+    justify-content: center;
+  }
+}

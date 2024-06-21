@@ -24,7 +24,7 @@ const LoginForm = () => {
 
   return (
     <Card size="large" className={styles.wrapper}>
-      <form className="flex-column gap-24" onSubmit={(e) => handleLogin(e)}>
+      <form className="flex-col gap-24" onSubmit={(e) => handleLogin(e)}>
         <h1>Login</h1>
 
         <FadeIn visible={error}>

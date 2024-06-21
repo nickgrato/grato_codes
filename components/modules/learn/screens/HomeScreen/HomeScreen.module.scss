@@ -1,0 +1,40 @@
+@use 'styles/core/boilerplate' as *;
+
+.page {
+  background: linear-gradient(
+    174deg,
+    #1d2941 0.38%,
+    #1d2941 33.37%,
+    #453081 95.57%
+  );
+  color: $color-text-main;
+  display: flex;
+  flex-direction: column;
+  padding: 8px 16px;
+  box-sizing: border-box;
+}
+
+.table_container {
+  flex-grow: 1;
+  overflow: hidden;
+
+  .table {
+    height: 100%;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    &_row {
+      width: 100%;
+      color: $color-text-main;
+      display: grid;
+      grid-template-columns: 60% 20% 20%;
+      text-align: left;
+      border-radius: 8px;
+      padding: 14px;
+      background-color: $color-background-neutral-0;
+      border: #34476c solid 1px;
+    }
+  }
+}

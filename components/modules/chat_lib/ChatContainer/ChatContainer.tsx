@@ -200,7 +200,7 @@ const ChatContainer = forwardRef(
                 />
               }
               content={
-                <div className="p-12 flex-column">
+                <div className="p-12 flex-col">
                   <Button
                     text="OpenAI"
                     label="OpenAI"

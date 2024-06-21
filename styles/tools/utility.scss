@@ -88,6 +88,10 @@
 // ---------------------------------
 //   Colors
 // ---------------------------------
+
+.color-primary {
+  color: $color-interaction-primary;
+}
 .color-text-reverse {
   color: $color-text-reverse;
 }
@@ -108,12 +112,32 @@
   color: $color-semantic-success;
 }
 
+.color-semantic-critical {
+  color: rgb(247, 175, 178);
+}
+
 .background-neutral {
   background: $color-background-neutral-0;
 }
 
 .background-rainbow {
   background: $gradient-rainbow;
+}
+
+.background-success {
+  background-color: $color-semantic-success;
+}
+
+.background-critical {
+  background-color: $color-semantic-critical;
+}
+
+.stroke-success {
+  stroke: $color-semantic-success;
+}
+
+.stroke-critical {
+  stroke: $color-semantic-critical;
 }
 
 // ---------------------------------
@@ -271,7 +295,7 @@
 }
 
 .flex {
-  &-column {
+  &-col {
     display: flex;
 
     flex-direction: column;
@@ -292,6 +316,21 @@
   }
 }
 
+.space-between {
+  display: flex;
+  justify-content: space-between;
+}
+
+.align-center {
+  display: flex;
+  align-items: center;
+}
+
+.justify-center {
+  display: flex;
+  justify-content: center;
+}
+
 .justify {
   &-end {
     display: flex;
@@ -300,6 +339,10 @@
   &-between {
     display: flex;
     justify-content: space-between;
+  }
+  &-center {
+    display: flex;
+    justify-content: center;
   }
 }
 
@@ -589,4 +632,48 @@ $unit: 'px';
       }
     }
   }
+}
+
+// ---------------------------------
+//  Animation
+// ---------------------------------
+
+@keyframes shake {
+  0% {
+    transform: translateX(0);
+  }
+  10% {
+    transform: translateX(-5px);
+  }
+  20% {
+    transform: translateX(5px);
+  }
+  30% {
+    transform: translateX(-5px);
+  }
+  40% {
+    transform: translateX(5px);
+  }
+  50% {
+    transform: translateX(-5px);
+  }
+  60% {
+    transform: translateX(5px);
+  }
+  70% {
+    transform: translateX(-5px);
+  }
+  80% {
+    transform: translateX(5px);
+  }
+  90% {
+    transform: translateX(-5px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.shake {
+  animation: shake 0.5s infinite;
 }

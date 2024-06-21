@@ -48,7 +48,7 @@ const ScrapeForm = () => {
   return (
     <section className={styles.container}>
       <Card size="large">
-        <form className="flex-column" onSubmit={handleSubmit}>
+        <form className="flex-col" onSubmit={handleSubmit}>
           <div className="flex-justify-between flex-align-center mb-24">
             <h2 className="heading-xxs ">Scrape URL</h2>
 

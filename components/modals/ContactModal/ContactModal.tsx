@@ -33,7 +33,7 @@ const ContactModal = () => {
       </div>
 
       {/* MODAL CONTENTS  */}
-      <div className="p-8 gap-12 flex-column">
+      <div className="p-8 gap-12 flex-col">
         <p className="body-md">Feel free to send me a message:</p>
 
         {data.map(({ icon, href, label }) => (

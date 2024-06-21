@@ -1,0 +1,36 @@
+@use 'styles/core/boilerplate' as *;
+
+.wrapper {
+  padding: 40px 12px 0px 12px;
+  background: linear-gradient(
+    174deg,
+    #453081 0.38%,
+    #1d2941 33.37%,
+    #1d2941 95.57%
+  );
+  height: calc(100vh - 75px);
+}
+.progress_container {
+  width: 80%;
+  background-color: #e0e0e0;
+  border-radius: 25px;
+  overflow: hidden;
+  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.1);
+}
+
+.progress {
+  height: 30px;
+  width: 0;
+  background-color: var(--color-interaction-primary);
+  border-radius: 25px 0 0 25px;
+  animation: load 3s infinite;
+}
+
+@keyframes load {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 100%;
+  }
+}

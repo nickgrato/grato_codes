@@ -1,0 +1,7 @@
+@use 'styles/core/boilerplate' as *;
+
+.wrapper {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: calc(100vh - 80px) 80px;
+}

@@ -1,0 +1,9 @@
+@use 'styles/core/boilerplate' as *;
+
+.page {
+  background: $gradient-rainbow;
+  display: flex;
+  flex-grow: 1;
+  justify-content: center;
+  align-items: center;
+}

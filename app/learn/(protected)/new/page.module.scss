@@ -1,0 +1,25 @@
+@use 'styles/core/boilerplate' as *;
+
+.page {
+  background: #364e79;
+  min-height: 100vh;
+  color: $color-text-main;
+}
+
+.indicator {
+  height: 4px;
+  flex-grow: 1;
+  background-color: #23334f;
+  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.5s;
+
+  &.active {
+    background-color: var(--color-interaction-primary);
+  }
+}
+
+.notifcations {
+  position: absolute;
+  bottom: 75px;
+  width: 100%;
+}

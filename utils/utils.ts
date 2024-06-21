@@ -4,3 +4,15 @@ export const truncateString = (str: string, max = 100) => {
   }
   return str
 }
+
+export const getFormattedDate = (iso: string, locale = 'en-US') => {
+  const date = new Date(iso)
+
+  const formattedDate = date.toLocaleString(locale, {
+    month: 'long',
+    day: 'numeric',
+    year: 'numeric',
+  })
+
+  return formattedDate
+}

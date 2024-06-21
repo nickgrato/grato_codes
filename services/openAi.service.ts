@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from 'axios'
-const URL = `https://grato-backend.fly.dev`
-// const URL = `http://127.0.0.1:5000`
+// const URL = `https://grato-backend.fly.dev`
+const URL = `http://127.0.0.1:5000`
 import { MessageT } from 'types'
 
 const PROTOCOLS = {

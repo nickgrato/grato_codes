@@ -1,0 +1,24 @@
+@use 'styles/core/boilerplate' as *;
+
+.page {
+  background: linear-gradient(
+    174deg,
+    #1d2941 0.38%,
+    #1d2941 33.37%,
+    #453081 95.57%
+  );
+  color: $color-text-main;
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 75px);
+  padding: 16px;
+  box-sizing: border-box;
+  justify-content: space-between;
+}
+
+.list {
+  li {
+    margin-bottom: 12px;
+    @include body-md();
+  }
+}

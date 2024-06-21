@@ -1,0 +1,60 @@
+@use 'styles/core/boilerplate' as *;
+
+.page {
+  background: linear-gradient(
+    174deg,
+    #1d2941 0.38%,
+    #1d2941 33.37%,
+    #453081 95.57%
+  );
+  color: $color-text-main;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  padding: 16px;
+  box-sizing: border-box;
+}
+
+// .table {
+//   display: flex;
+//   flex-direction: column;
+//   gap: 12px;
+//   margin-bottom: 24px;
+
+//   &_row {
+//     width: 100%;
+//     color: $color-text-main;
+//     display: grid;
+//     grid-template-columns: 40% 20% 20%;
+//     text-align: left;
+//     border-radius: 8px;
+//     padding: 12px;
+//     background-color: $color-background-neutral-0;
+//     border: #34476c solid 1px;
+//   }
+// }
+
+.table_container {
+  flex-grow: 1; // Allows the table container to take up remaining space
+  overflow: hidden; // Prevents page scroll
+
+  .table {
+    height: 100%; // Ensures the table takes the full height of the container
+    overflow-y: auto; // Makes the table content scrollable
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    &_row {
+      width: 100%;
+      color: $color-text-main;
+      display: grid;
+      grid-template-columns: 40% 20% 20%;
+      text-align: left;
+      border-radius: 8px;
+      padding: 12px;
+      background-color: $color-background-neutral-0;
+      border: #34476c solid 1px;
+    }
+  }
+}

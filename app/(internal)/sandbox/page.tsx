@@ -105,7 +105,7 @@ const page = () => {
             CoinCap.io. The worker is started when you click the "Start stream"
             button and stopped when you click the "End stream" button.
           </p>
-          <div className="gap-12 flex-column">
+          <div className="gap-12 flex-col">
             {Object.keys(prices).map((key) => {
               const price = prices[key as keyof CryptoDataT]
               return (
